@@ -1,0 +1,4 @@
+rootProject.name = 'es'
+
+include 'web-cbr'
+include 'web-hamming'
