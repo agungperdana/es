@@ -1,0 +1,10 @@
+repositories {
+    maven { url "http://mavensync.zkoss.org/maven2" }
+    maven { url "http://mavensync.zkoss.org/eval" }
+}
+
+dependencies {
+    
+    compile "org.zkoss.zk:zk:8.5.0"
+    compile "org.zkoss.zk:zkbind:8.5.0"
+}

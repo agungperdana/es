@@ -1,4 +1,5 @@
 rootProject.name = 'es'
 
+include 'back-office'
 include 'web-cbr'
 include 'web-hamming'
