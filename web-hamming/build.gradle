@@ -1,5 +1,8 @@
 dependencies {
     
+    compile project(':security')
+    compile project(':back-office')
+    
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
 }
