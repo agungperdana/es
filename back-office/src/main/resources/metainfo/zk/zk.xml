@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk>
+	<config-name>backoffice</config-name>
+
+	<richlet>
+    	<richlet-name>LoginRichlet</richlet-name>
+    	<richlet-class>com.kratonsolution.es.backoffice.ui.LoginRichlet</richlet-class>
+	</richlet>
+
+	<richlet-mapping>
+    	<richlet-name>LoginRichlet</richlet-name>
+    	<url-pattern>/backoffice/login</url-pattern>
+	</richlet-mapping>
+</zk>

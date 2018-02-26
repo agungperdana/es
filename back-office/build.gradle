@@ -5,6 +5,7 @@ repositories {
 
 dependencies {
     
+    compile 'org.springframework.boot:spring-boot-starter-web'
     compile "org.zkoss.zk:zk:8.5.0"
     compile "org.zkoss.zk:zkbind:8.5.0"
 }

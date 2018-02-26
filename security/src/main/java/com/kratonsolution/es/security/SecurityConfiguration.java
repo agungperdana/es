@@ -23,33 +23,34 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableGlobalMethodSecurity(securedEnabled=true,proxyTargetClass=true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 {
-	@Autowired
-	private AuthenticationService authenticationService;
-	
-	@Override
-	protected void configure(HttpSecurity http) throws Exception
-	{
-		http.authorizeRequests()
-			.antMatchers("/backoffice/**").authenticated()
-			.anyRequest().permitAll();
-		
-		http.csrf().disable();
-		http.headers().frameOptions().sameOrigin();
-	}
-	
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth)throws Exception
-	{
-		auth.authenticationProvider(authProvider());
-	}
-	
-	@Bean
-	public DaoAuthenticationProvider authProvider()
-	{
-		DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-		provider.setPasswordEncoder(new PasswordEncoderImpl());
-		provider.setUserDetailsService(authenticationService);
-		
-		return provider;
-	}
+    @Autowired
+    private AuthenticationService authenticationService;
+    
+    @Override
+    protected void configure(HttpSecurity http) throws Exception
+    {
+        http.authorizeRequests()
+            .antMatchers("/backoffice").permitAll()
+            .antMatchers("/backoffice/login").permitAll()
+            .antMatchers("/backoffice/**").authenticated()
+            .anyRequest().permitAll();
+        http.csrf().disable();
+        http.headers().frameOptions().sameOrigin();
+    }
+    
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth)throws Exception
+    {
+        auth.authenticationProvider(authProvider());
+    }
+    
+    @Bean
+    public DaoAuthenticationProvider authProvider()
+    {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setPasswordEncoder(new PasswordEncoderImpl());
+        provider.setUserDetailsService(authenticationService);
+        
+        return provider;
+    }
 }
