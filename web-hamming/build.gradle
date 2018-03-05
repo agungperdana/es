@@ -1,5 +1,6 @@
 dependencies {
     
+    compile project(':web-common')
     compile project(':security')
     compile project(':back-office')
     

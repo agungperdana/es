@@ -20,21 +20,12 @@ public class SecurityInformation implements UserDetails
 {
 	private User user;
 	
-	private Collection<Authority> authoritys;
+	private Collection<Authority> authorities;
 	
-	public SecurityInformation(@NonNull User user,Collection<Authority> authoritys)
+	public SecurityInformation(@NonNull User user, Collection<Authority> authorities)
 	{
 		this.user = user;
-		this.authoritys = authoritys;
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.springframework.security.core.userdetails.UserDetails#getAuthorities()
-	 */
-	@Override
-	public Collection<Authority> getAuthorities()
-	{
-		return authoritys;
+		this.authorities = authorities;
 	}
 
 	/* (non-Javadoc)
@@ -88,6 +79,6 @@ public class SecurityInformation implements UserDetails
 	@Override
 	public boolean isEnabled()
 	{
-		return this.user.isEnabled();
+		return user.isEnabled();
 	}
 }

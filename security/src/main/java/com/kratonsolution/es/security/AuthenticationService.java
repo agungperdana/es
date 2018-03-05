@@ -1,10 +1,10 @@
 package com.kratonsolution.es.security;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -27,11 +27,15 @@ public class AuthenticationService implements UserDetailsService
 	private UserRepository service;
 	
 	@Override
-	public UserDetails loadUserByUsername(@NonNull String name) throws UsernameNotFoundException
+	public SecurityInformation loadUserByUsername(@NonNull String name) throws UsernameNotFoundException
 	{
 		Optional<User> opt = service.findOneByUsername(name);
 		Preconditions.checkState(opt.isPresent(), "User does not exist");
 		
-		return new SecurityInformation(opt.get(),new ArrayList<Authority>());
+		Collection<Authority> authoritys = new ArrayList<>();
+		authoritys.add(new Authority("ROLE_USER"));
+		authoritys.add(new Authority("ROLE_ADMIN"));
+		
+		return new SecurityInformation(opt.get(), authoritys);
 	}
 }

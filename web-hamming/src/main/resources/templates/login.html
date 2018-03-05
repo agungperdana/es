@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<html lang="en" class="no-js" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+   
+    <head>
+        <meta charset="utf-8"/>
+        <title>Backoffice Dashboard v-0.1.1.Final</title>
+        <link rel="stylesheet" th:href="@{/css/photon.css}">
+    </head>
+    <body>
+    	<div class="window">
+    		<div class="window-content">
+    			<header class="toolbar toolbar-header">
+  					<h1 class="title">Admin Dashboard Login</h1>
+				</header>
+    			<form th:action="@{/login}">
+					<input type="text" name="username" class="form-control" placeholder="User Name">
+					<input type="password" name="password" class="form-control" placeholder="User Name">
+					<button type="submit" class="btn btn-form btn-primary">Sign In</button>
+				</form>	
+    		</div>
+    	</div>
+    </body>
+
+</html>

@@ -1,6 +1,8 @@
 rootProject.name = 'es'
 
 include 'security'
+include 'web-util'
 include 'back-office'
+include 'web-common'
 include 'web-cbr'
 include 'web-hamming'
