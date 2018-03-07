@@ -41,8 +41,14 @@ public class User {
     
     public User(@NonNull String username, @NonNull String password) {
         
+        this(username, password, false);
+    }
+    
+    public User(@NonNull String username, @NonNull String password, boolean enabled) {
+        
         this.username = username;
         this.password = password;
+        this.enabled = enabled;
     }
     
     public void changePassword(@NonNull String newOne) {

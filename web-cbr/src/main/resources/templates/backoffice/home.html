@@ -6,7 +6,7 @@
 <body>
 <div class="window">
   <header class="toolbar toolbar-header">
-    <h1 class="title">Backoffice Dashboard .v-0.1.1.Final</h1>
+    <h1 class="title">Backoffice Dashboard .v-0.1.1.Final (HOME)</h1>
     <div class="toolbar-actions">
       <div class="btn-group">
         <button class="btn btn btn-default">
@@ -28,17 +28,13 @@
                   User
               </a>
               <h5 class="nav-group-title">CBR Setting</h5>
-              <a class="nav-group-item">
+              <a class="nav-group-item" th:href="@{/backoffice/fitures(page=0,size=50)}">
                   <span class="icon icon-shareable"></span>
                   Fitur
               </a>
-              <a class="nav-group-item">
-                  <span class="icon icon-users"></span>
+              <a class="nav-group-item" th:href="@{/backoffice/kasuses(page=0,size=50)}">
+                  <span class="icon icon-google-circles"></span>
                   Kasus
-              </a>
-              <a class="nav-group-item">
-                  <span class="icon icon-user"></span>
-                  Solusi
               </a>
           </nav>
       </div>

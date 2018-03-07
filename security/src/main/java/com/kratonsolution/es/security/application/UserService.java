@@ -36,7 +36,7 @@ public class UserService {
     private AuthenticationService authService;
     
     private StrongPasswordEncryptor encryptor = new StrongPasswordEncryptor();
-    
+        
     @Transactional(readOnly=true, propagation=Propagation.SUPPORTS)
     public void signIn(@NonNull String username, @NonNull String password) {
         
@@ -71,12 +71,25 @@ public class UserService {
         return repo.findAllByUsernameLike(new PageRequest(page, size), key);
     }
     
+    public Optional<User> getById(@NonNull String id) {
+        
+        return Optional.ofNullable(repo.findOne(id));
+    }
+    
     public void create(@NonNull User user) {
         
         Optional<User> opt = repo.findOneByUsername(user.getUsername());
         if(!opt.isPresent()) {
             repo.save(user);
         }
+    }
+    
+    public void update(@NonNull User user) {
+        
+        Optional<User> opt = repo.findOneByUsername(user.getUsername());
+        Preconditions.checkState(opt.isPresent(), "User does not exist.");
+        opt.get().setEnabled(user.isEnabled());
+        repo.save(opt.get());
     }
     
     public void enabled(@NonNull String username) {
@@ -116,5 +129,12 @@ public class UserService {
         }
         
         return false;
+    }
+    
+    public void delete(@NonNull String id) {
+        
+        User user = repo.findOne(id);
+        Preconditions.checkState(user != null, "User does not exist.");
+        repo.delete(user);
     }
 }

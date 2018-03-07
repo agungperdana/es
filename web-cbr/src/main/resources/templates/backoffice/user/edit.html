@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<script data-th-inline="javascript">
+		/*<![CDATA[*/
+			function back() {
+  				window.location.replace(/*[[@{/backoffice/users(page=0,size=50)}]]*/);
+  			}
+			
+	  		function home() {
+	  			window.location="/backoffice/home";
+	  		}
+	  		
+	  		function setting() {
+	  			window.location="/backoffice/settings";
+	  		}
+		/*]]>*/
+	</script>
+  	<link rel="stylesheet" type="text/css" th:href="@{/css/photon.css}"/>
+  	<title>USER - ADD</title>
+</head>
+<body>
+<div class="window">
+  <header class="toolbar toolbar-header">
+    <h1 class="title">Backoffice Dashboard .v-0.1.1.Final (USER-UPDATE)</h1>
+    <div class="toolbar-actions">
+      <div class="btn-group">
+        <button class="btn btn btn-default" onclick="javascript:home()">
+          <span class="icon icon-home"></span>
+        </button>
+        <button class="btn btn btn-default" onclick="javascript:setting()">
+            <span class="icon icon-tools"></span>
+          </button>
+      </div>
+    </div>
+  </header>
+  <div class="window-content">
+    <div class="pane-group">
+      <div class="pane-sm sidebar">
+          <nav class="nav-group">
+              <h5 class="nav-group-title">Security</h5>
+              <a class="nav-group-item active" th:href="@{/users}">
+                  <span class="icon icon-user"></span>
+                  User
+              </a>
+              <h5 class="nav-group-title">CBR Setting</h5>
+              <a class="nav-group-item" th:href="@{/backoffice/fitures(page=0,size=50)}">
+                  <span class="icon icon-shareable"></span>
+                  Fitur
+              </a>
+              <a class="nav-group-item" th:href="@{/backoffice/kasuses(page=0,size=50)}">
+                  <span class="icon icon-google-circles"></span>
+                  Kasus
+              </a>
+          </nav>
+      </div>
+      <div class="pane">
+      	<div class="window">
+		<header class="toolbar toolbar-header">
+    		<div class="toolbar-actions">
+      			<div class="btn-group">
+        			<button class="btn btn-default" onclick="javascript:back()">
+          				<span class="icon icon-erase"></span>
+        			</button>
+        			<button class="btn btn-default" onclick="javascript:document.addform.submit()">
+            			<span class="icon icon-floppy"></span>
+          			</button>
+      			</div>
+    		</div>
+  		</header>
+  		<div class="window-content">
+				<form name="addform" style="padding: 20px;width: 50%;" data-th-action="@{/backoffice/user/edit/store}" method="post">
+				<div class="form-group">
+    				<label>Name/Email</label>
+    				<input type="text" class="form-control" data-th-value="${user.username}" readonly="readonly" name="name"/>
+  				</div>
+  				<div class="form-group">
+    				<label>Password</label>
+    				<input type="password" class="form-control" data-th-value="${user.password}" readonly="readonly" name="password"/>
+  				</div>
+  				<div class="checkbox">
+    				<label>
+      					<input type="checkbox" name="enabled" data-th-checked="${user.enabled}"/> Enabled
+    				</label>
+  				</div>
+        		</form>
+  		</div>
+  		<footer class="toolbar toolbar-footer">
+		</footer>
+      	</div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
