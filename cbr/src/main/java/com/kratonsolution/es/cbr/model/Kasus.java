@@ -46,5 +46,5 @@ public class Kasus {
     private Set<KasusFitur> fitures = new HashSet<>();
     
     @OneToMany(mappedBy="parent", cascade=CascadeType.ALL, fetch=FetchType.LAZY, orphanRemoval=true)
-    private Set<KasusFitur> solutions = new HashSet<>();
+    private Set<Solution> solutions = new HashSet<>();
 }
