@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  	<link rel="stylesheet" type="text/css" th:href="@{/css/photon.css}"/>
+  	<script data-th-inline="text">
+  		function go(url) {
+  			window.location = url;
+  		}
+  		
+  		function home() {
+  			window.location="/backoffice/home";
+  		}
+  		
+  		function search() {
+  			window.location="/backoffice/home";
+  		}
+  		
+  		function initadd() {
+  			window.location="/backoffice/kasus/add/pre";
+  		}
+	
+  		function remove(url) {
+			
+  			if(window.confirm("Are you sure? Deleted data cannot be restored.")) {
+  				window.location = url;
+  			}
+  		}
+  		
+  	</script>
+  	<title>Users</title>
+</head>
+<body>
+<div class="window">
+  <header class="toolbar toolbar-header">
+    <h1 class="title">Backoffice Dashboard .v-0.1.1.Final (KASUS)</h1>
+    <div class="toolbar-actions">
+      <div class="btn-group">
+        <button class="btn btn btn-default" onclick="javascript:home()">
+          <span class="icon icon-home"></span>
+        </button>
+        <button class="btn btn btn-default" onclick="javascript:setting()">
+            <span class="icon icon-tools"></span>
+          </button>
+      </div>
+    </div>
+  </header>
+  <div class="window-content">
+    <div class="pane-group">
+      <div class="pane-sm sidebar">
+          <nav class="nav-group">
+              <h5 class="nav-group-title">Security</h5>
+              <a class="nav-group-item" th:href="@{/backoffice/users(page=0, size=50)}">
+                  <span class="icon icon-kasus"></span>
+                  User
+              </a>
+              <h5 class="nav-group-title">CBR Setting</h5>
+              <a class="nav-group-item" th:href="@{/backoffice/fitures(page=0,size=50)}">
+                  <span class="icon icon-shareable"></span>
+                  Fitur
+              </a>
+              <a class="nav-group-item active" th:href="@{/backoffice/kasuses(page=0,size=50)}">
+                  <span class="icon icon-google-circles"></span>
+                  Kasus
+              </a>
+          </nav>
+      </div>
+      <div class="pane">
+      	<div class="window">
+		<header class="toolbar toolbar-header">
+    		<div class="toolbar-actions">
+      			<div class="btn-group">
+        			<button class="btn btn btn-default" onclick="javascript:initadd()">
+          				<span class="icon icon-plus-circled"></span>
+        			</button>
+        			<button class="btn btn btn-default" onclick="javascript:search()">
+            			<span class="icon icon-search"></span>
+          			</button>
+      			</div>
+    		</div>
+  		</header>
+  		<div class="window-content">
+	  		<table class="table-striped">
+	  		<thead>
+	    	<tr>
+	    		<th style="width: 125px">&nbsp;</th>
+	      		<th style="width: 200px">Kode</th>
+	      		<th style="width: 200px">Tanggal Input</th>
+	      		<th>Note</th>
+	    	</tr>
+	  		</thead>
+	  		<tbody>
+	    	<tr data-th-each="kasus : ${kasuses}">
+	    		<td>
+	      			<div class="btn-group">
+    					<button class="btn btn-mini btn-default" data-th-onclick="'remove(\'/backoffice/kasus/delete/' + ${kasus.id} + '\');'">
+	         				<span class="icon icon-trash"></span>
+	       				</button>
+	       				<button class="btn btn-mini btn-default" data-th-onclick="'go(\'/backoffice/kasus/edit/pre/' + ${kasus.id} + '\');'">
+	         				<span class="icon icon-pencil"></span>
+	       				</button>
+	       			</div>
+	      		</td>
+	      		<td data-th-text="${kasus.name}"/>
+	      		<td data-th-text="${#dates.format(kasus.date, 'dd-MM-yyyy HH:mm')}"/>
+	      		<td data-th-text="${kasus.note}"/>
+	    	</tr>
+	  		</tbody>
+			</table>
+  		</div>
+  		<footer class="toolbar toolbar-footer">
+    		<div class="toolbar-actions">
+      			<div class="btn-group">
+    				<button class="btn btn-default">
+	         			<span class="icon icon-to-start"></span>
+	       			</button>
+	       			<button class="btn btn-default">
+	         			<span class="icon icon-fast-backward"></span>
+	       			</button>
+	       			<button class="btn btn-default">
+	         			Page <th:block th:text="${page}"/> of <th:block th:text="${totalPage}"/>
+	       			</button>
+	       			<button class="btn btn-default">
+	         			<span class="icon icon-fast-forward"></span>
+	       			</button>
+	       			<button class="btn btn-default">
+	         			<span class="icon icon-to-end"></span>
+	       			</button>
+       			</div>
+    		</div>
+		</footer>
+      	</div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -11,6 +11,7 @@ import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
 
 /**
  * @author Agung Dodi Perdana
@@ -27,6 +28,7 @@ public class KasusFitur {
     @Column
     private String fitur;
     
+    @Setter
     @Column
     private boolean value;
     

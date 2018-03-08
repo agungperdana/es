@@ -15,6 +15,7 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 
 /**
@@ -37,6 +38,10 @@ public class Kasus {
     
     @Setter
     @Column
+    private String note;
+    
+    @Setter
+    @Column
     private boolean deleted;
     
     @Version
@@ -47,4 +52,15 @@ public class Kasus {
     
     @OneToMany(mappedBy="parent", cascade=CascadeType.ALL, fetch=FetchType.LAZY, orphanRemoval=true)
     private Set<Solution> solutions = new HashSet<>();
+    
+    Kasus() {}
+    
+    public Kasus(@NonNull String code, @NonNull String note, @NonNull Set<KasusFitur> fitures, @NonNull Set<Solution> solutions) {
+
+        this.code = code;
+        this.note = note;
+        this.fitures = fitures;
+        this.solutions = solutions;
+        this.date = new Timestamp(System.currentTimeMillis());
+    }
 }

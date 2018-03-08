@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/photon.css}"/>
+  	<link rel="stylesheet" type="text/css" th:href="@{/css/jquery-ui.min.css}"/>
+  	<script data-th-src="@{/js/jquery.min.js}"></script>
+  	<script data-th-src="@{/js/jquery-ui.min.js}"></script>
+  	<title>USER - ADD</title>
+  	<script data-th-inline="javascript">
+		/*<![CDATA[*/
+			function back() {
+  				window.location.replace(/*[[@{/backoffice/kasuses(page=0,size=50)}]]*/);
+  			}
+			
+	  		function home() {
+	  			window.location="/backoffice/home";
+	  		}
+	  		
+	  		function setting() {
+	  			window.location="/backoffice/settings";
+	  		}
+		/*]]>*/
+	</script>
+	<script>
+		$( function() {
+			$( "#tabs" ).tabs();
+			
+			$("#solution-add").click(function(){
+				
+				var row = $("<tr></tr>")
+							.append($('<td><input type="checkbox"/></td>'))
+							.append($('<td><input name="gejala" style="width:100%"/></td>'))
+							.append($('<td><input name="jenis"  style="width:100%"/></td>'))
+							.append($('<td><input name="solusi" style="width:100%"/></td>'));
+				
+				$("#solution-body").append(row);
+			});
+		});
+	</script>
+</head>
+<body>
+<div class="window">
+  <header class="toolbar toolbar-header">
+    <h1 class="title">Backoffice Dashboard .v-0.1.1.Final (KASUS-ADD)</h1>
+    <div class="toolbar-actions">
+      <div class="btn-group">
+        <button class="btn btn btn-default" onclick="javascript:home()">
+          <span class="icon icon-home"></span>
+        </button>
+        <button class="btn btn btn-default" onclick="javascript:setting()">
+            <span class="icon icon-tools"></span>
+          </button>
+      </div>
+    </div>
+  </header>
+  <div class="window-content">
+    <div class="pane-group">
+      <div class="pane-sm sidebar">
+          <nav class="nav-group">
+              <h5 class="nav-group-title">Security</h5>
+              <a class="nav-group-item" th:href="@{/backoffice/users}">
+                  <span class="icon icon-kasus"></span>
+                  User
+              </a>
+              <h5 class="nav-group-title">CBR Setting</h5>
+              <a class="nav-group-item" th:href="@{/backoffice/fitures(page=0,size=50)}">
+                  <span class="icon icon-shareable"></span>
+                  Fitur
+              </a>
+              <a class="nav-group-item active" th:href="@{/backoffice/kasuses(page=0,size=50)}">
+                  <span class="icon icon-google-circles"></span>
+                  Kasus
+              </a>
+          </nav>
+      </div>
+      <div class="pane">
+      	<div class="window">
+		<header class="toolbar toolbar-header">
+    		<div class="toolbar-actions">
+      			<div class="btn-group">
+        			<button class="btn btn-default" onclick="javascript:back()">
+          				<span class="icon icon-erase"></span>
+        			</button>
+        			<button class="btn btn-default" onclick="javascript:document.addform.submit()">
+            			<span class="icon icon-floppy"></span>
+          			</button>
+      			</div>
+    		</div>
+  		</header>
+  		<div class="window-content">
+			<form name="addform" style="padding: 20px;width: 65%;" data-th-action="@{/backoffice/kasus/add/store}" method="post">
+ 				<div class="form-group">
+   					<label>Catatan Kasus</label>
+   					<textarea class="form-control" name="note"></textarea>
+ 				</div>
+ 				<div id="tabs">
+	  				<ul>
+					    <li><a href="#fitur">Fitur</a></li>
+					    <li><a href="#tabs-2">Solusi</a></li>
+					</ul>
+					<div id="fitur">
+						<table class="table-striped">
+				  		<thead>
+				    	<tr>
+				      		<th>Nama</th>
+				      		<th style="width: 75px">Nilai</th>
+				    	</tr>
+				  		</thead>
+				  		<tbody>
+				  		<tr data-th-each="fitur:${fitures}">
+				  			<td><input type="text" readonly="readonly" name="fiturename" data-th-value="${fitur.name}"/></td>
+				  			<td><input type="checkbox" name="fiturevalue"/></td>
+				  		</tr>
+				  		</tbody>
+				  		</table>
+					</div>
+					<div id="tabs-2">
+						<header class="toolbar toolbar-header">
+				    		<div class="toolbar-actions">
+				      			<div class="btn-group">
+				      				<button id="solution-add" type="button" class="btn btn-default">
+				            			<span class="icon icon-plus-squared"></span>
+				          			</button>
+				        			<button id="solution-remove" type="button" class="btn btn-default">
+				          				<span class="icon icon-trash"></span>
+				        			</button>
+				      			</div>
+				    		</div>
+				  		</header>
+				  		<table class="table-striped">
+				  		<thead>
+				    	<tr>
+				      		<th style="width: 25px">&nbsp;</th>
+				      		<th>Gejala</th>
+				      		<th>Jenis</th>
+				      		<th>Solusi</th>
+				    	</tr>
+				  		</thead>
+				  		<tbody id="solution-body">
+				  		</tbody>
+				  		</table>
+					</div>
+				</div>
+       		</form>
+  		</div>
+  		<footer class="toolbar toolbar-footer">
+		</footer>
+      	</div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
