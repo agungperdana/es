@@ -27,6 +27,9 @@ public class Fitur {
     @Column
     private String name;
     
+    @Column
+    private int sequence;
+    
     @Setter
     @Column
     private String note;

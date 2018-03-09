@@ -25,7 +25,9 @@
 		$( function() {
 			$( "#tabs" ).tabs();
 			
-			$("#solution-add").click(function(){
+			$("#solution-add").click(function(e){
+				
+				e.preventDefault();
 				
 				var row = $("<tr></tr>")
 							.append($('<td><input type="checkbox"/></td>'))
@@ -88,7 +90,7 @@
     		</div>
   		</header>
   		<div class="window-content">
-			<form name="addform" style="padding: 20px;width: 65%;" data-th-action="@{/backoffice/kasus/add/store}" method="post">
+			<form name="addform" style="padding: 20px;width: 85%;" data-th-action="@{/backoffice/kasus/add/store}" method="post">
  				<div class="form-group">
    					<label>Catatan Kasus</label>
    					<textarea class="form-control" name="note"></textarea>
@@ -108,7 +110,7 @@
 				  		</thead>
 				  		<tbody>
 				  		<tr data-th-each="fitur:${fitures}">
-				  			<td><input type="text" readonly="readonly" name="fiturename" data-th-value="${fitur.name}"/></td>
+				  			<td><input style="width: 100%" readonly="readonly" name="fitur" data-th-value="${fitur.name}"/></td>
 				  			<td><input type="checkbox" name="fiturevalue"/></td>
 				  		</tr>
 				  		</tbody>

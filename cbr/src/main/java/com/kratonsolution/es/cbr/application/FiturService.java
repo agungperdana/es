@@ -22,15 +22,15 @@ import lombok.NonNull;
 @Service
 @Transactional(rollbackFor=Exception.class)
 public class FiturService {
- 
+    
     @Autowired
     private FiturRepository repo;
-
+    
     @Transactional(readOnly=true, propagation=Propagation.SUPPORTS)
     public List<Fitur> getAllFitures() {
         return repo.findAll();
     }
-
+    
     @Transactional(readOnly=true, propagation=Propagation.SUPPORTS)
     public List<Fitur> getAllFitures(@NonNull String key) {
         return repo.findAllByNameLike(key);
@@ -49,6 +49,11 @@ public class FiturService {
     public Optional<Fitur> getById(@NonNull String id) {
         
         return Optional.ofNullable(repo.findOne(id));
+    }
+    
+    public Optional<Fitur> getByName(@NonNull String name) {
+        
+        return repo.findOneByName(name);
     }
     
     public void create(@NonNull Fitur fitur) {

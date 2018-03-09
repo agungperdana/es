@@ -2,6 +2,9 @@ package com.kratonsolution.es.backoffice.controller;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kratonsolution.es.cbr.application.FiturService;
 import com.kratonsolution.es.cbr.application.KasusService;
+import com.kratonsolution.es.cbr.model.Fitur;
 import com.kratonsolution.es.cbr.model.Kasus;
+import com.kratonsolution.es.cbr.model.KasusFitur;
 import com.kratonsolution.es.web.util.Page;
 
 /**
@@ -60,9 +65,48 @@ public class KasusController {
     }
     
     @RequestMapping("/backoffice/kasus/add/store")
-    public String add(@RequestParam("date") String name, @RequestParam(value="note", required=false)Optional<String> note) {
+    public String add(@RequestParam("fitur")String[] fitur, 
+                      @RequestParam("fiturevalue")boolean[] fiturevalue,
+                      @RequestParam("gejala")String[] gejala,
+                      @RequestParam("jenis")String[] jenis,
+                      @RequestParam("solusi")String[] solusi,
+                      @RequestParam("note")String note) {
 
-//        service.create(new Kasus(name, note.orElse(null)));
+        Kasus kasus = new Kasus("init", note);
+        
+        for(int idx=0; idx<fitur.length; idx++) {
+            kasus.addFitur(fitur[idx], fiturevalue[idx]);
+        }
+        
+        for(int idx=0; idx<gejala.length; idx++) {
+            kasus.addSolution(gejala[idx], jenis[idx], solusi[idx]);
+        }
+        
+        List<KasusFitur> sorted = new ArrayList<>(kasus.getFitures());
+        
+        Collections.sort(sorted, new Comparator<KasusFitur>() {
+
+            @Override
+            public int compare(KasusFitur o1, KasusFitur o2) {
+
+                Optional<Fitur> f1 = fiturService.getByName(o1.getFitur());
+                Optional<Fitur> f2 = fiturService.getByName(o2.getFitur());
+             
+                if(f1.isPresent() && f2.isPresent()) {
+                    return f1.get().getSequence() - f2.get().getSequence();
+                }
+                
+                return 0;
+            }
+        });
+        
+        StringBuilder builder = new StringBuilder();
+        
+        sorted.stream().forEach(fit -> builder.append(fit.isValue()?"1":"0"));
+        kasus.setCode(builder.toString());
+        
+        service.create(kasus);
+        
         return "redirect:/backoffice/kasuses?page=0&size=50";
     }
     

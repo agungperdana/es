@@ -30,6 +30,7 @@ public class Kasus {
     @Id
     private String id = UUID.randomUUID().toString();
     
+    @Setter
     @Column
     private String code;
     
@@ -55,12 +56,20 @@ public class Kasus {
     
     Kasus() {}
     
-    public Kasus(@NonNull String code, @NonNull String note, @NonNull Set<KasusFitur> fitures, @NonNull Set<Solution> solutions) {
+    public Kasus(@NonNull String code, @NonNull String note) {
 
         this.code = code;
         this.note = note;
-        this.fitures = fitures;
-        this.solutions = solutions;
         this.date = new Timestamp(System.currentTimeMillis());
+    }
+    
+    public void addFitur(@NonNull String fitur, boolean selected) {
+        
+        fitures.add(new KasusFitur(this, fitur, selected));
+    }
+    
+    public void addSolution(@NonNull String gejala, @NonNull String jenis, @NonNull String solusi) {
+        
+        solutions.add(new Solution(this, gejala, jenis, solusi));
     }
 }
