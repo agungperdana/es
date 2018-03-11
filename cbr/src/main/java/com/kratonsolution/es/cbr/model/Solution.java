@@ -13,6 +13,7 @@ import javax.persistence.Version;
 
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
 
 /**
  * @author Agung Dodi Perdana
@@ -32,6 +33,7 @@ public class Solution {
     @Column
     private String jenis;
     
+    @Setter
     @Column
     private String description;
     
@@ -41,7 +43,7 @@ public class Solution {
     
     @Column(name="created_date")
     private Timestamp createdDate;
-    
+        
     @Version
     private Long version;
     
@@ -50,6 +52,16 @@ public class Solution {
     
     public Solution(@NonNull Kasus parent, @NonNull String gejala, @NonNull String jenis, @NonNull String description) {
         
+        this.parent = parent;
+        this.gejala = gejala;
+        this.jenis = jenis;
+        this.description = description;
+        this.createdDate = new Timestamp(System.currentTimeMillis());
+    }
+    
+    public Solution(@NonNull String id, @NonNull Kasus parent, @NonNull String gejala, @NonNull String jenis, @NonNull String description) {
+        
+        this.id = id;
         this.parent = parent;
         this.gejala = gejala;
         this.jenis = jenis;

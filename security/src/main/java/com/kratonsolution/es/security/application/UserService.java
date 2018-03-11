@@ -58,7 +58,7 @@ public class UserService {
 
     @Transactional(readOnly=true, propagation=Propagation.SUPPORTS)
     public List<User> getAllUsers(@NonNull String key) {
-        return repo.findAllByUsernameLike(key);
+        return repo.findAll(key);
     }
     
     @Transactional(readOnly=true, propagation=Propagation.SUPPORTS)
@@ -68,7 +68,17 @@ public class UserService {
     
     @Transactional(readOnly=true, propagation=Propagation.SUPPORTS)
     public List<User> getAllUsers(@NonNull String key,int page, int size) {
-        return repo.findAllByUsernameLike(new PageRequest(page, size), key);
+        return repo.findAll(new PageRequest(page, size), key);
+    }
+    
+    @Transactional(readOnly=true, propagation=Propagation.SUPPORTS)
+    public int count() {
+        return (int)repo.count();
+    }
+    
+    @Transactional(readOnly=true, propagation=Propagation.SUPPORTS)
+    public int count(@NonNull String key) {
+        return repo.count(key).intValue();
     }
     
     public Optional<User> getById(@NonNull String id) {

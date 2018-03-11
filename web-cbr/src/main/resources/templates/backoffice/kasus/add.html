@@ -5,7 +5,7 @@
   	<link rel="stylesheet" type="text/css" th:href="@{/css/jquery-ui.min.css}"/>
   	<script data-th-src="@{/js/jquery.min.js}"></script>
   	<script data-th-src="@{/js/jquery-ui.min.js}"></script>
-  	<title>USER - ADD</title>
+  	<title>KASUS - ADD</title>
   	<script data-th-inline="javascript">
 		/*<![CDATA[*/
 			function back() {
@@ -17,9 +17,13 @@
 	  		}
 	  		
 	  		function setting() {
-	  			window.location="/backoffice/settings";
+	  			window.location="/backoffice/logout";
 	  		}
 		/*]]>*/
+		
+  		function logout() {
+  			window.location=/*[[@{/logout}]]*/
+  		}
 	</script>
 	<script>
 		$( function() {
@@ -49,9 +53,9 @@
         <button class="btn btn btn-default" onclick="javascript:home()">
           <span class="icon icon-home"></span>
         </button>
-        <button class="btn btn btn-default" onclick="javascript:setting()">
-            <span class="icon icon-tools"></span>
-          </button>
+       	<button class="btn btn btn-default" onclick="javascript:logout()">
+        	<span class="icon icon-logout"></span>
+        </button>
       </div>
     </div>
   </header>
@@ -60,7 +64,7 @@
       <div class="pane-sm sidebar">
           <nav class="nav-group">
               <h5 class="nav-group-title">Security</h5>
-              <a class="nav-group-item" th:href="@{/backoffice/users}">
+              <a class="nav-group-item" th:href="@{/backoffice/users(page=0,size=50)}">
                   <span class="icon icon-kasus"></span>
                   User
               </a>
@@ -105,13 +109,18 @@
 				  		<thead>
 				    	<tr>
 				      		<th>Nama</th>
-				      		<th style="width: 75px">Nilai</th>
+				      		<th style="width: 100px">Nilai</th>
 				    	</tr>
 				  		</thead>
 				  		<tbody>
 				  		<tr data-th-each="fitur:${fitures}">
 				  			<td><input style="width: 100%" readonly="readonly" name="fitur" data-th-value="${fitur.name}"/></td>
-				  			<td><input type="checkbox" name="fiturevalue"/></td>
+				  			<td>
+				  				<select name="fiturevalue">
+				  					<option value="false" selected="selected">Tidak</option>
+				  					<option value="true">Ya</option>
+				  				</select>
+				  			</td>
 				  		</tr>
 				  		</tbody>
 				  		</table>

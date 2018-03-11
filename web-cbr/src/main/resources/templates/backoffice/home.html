@@ -2,6 +2,11 @@
 <html lang="en" class="no-js" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
   	<link rel="stylesheet" type="text/css" th:href="@{/css/photon.css}"/>
+  	<script data-th-inline="javascript">
+		function logout() {
+  			window.location=/*[[@{/logout}]]*/
+  		}
+  	</script>
 </head>
 <body>
 <div class="window">
@@ -12,8 +17,8 @@
         <button class="btn btn btn-default">
           <span class="icon icon-home"></span>
         </button>
-        <button class="btn btn btn-default">
-            <span class="icon icon-tools"></span>
+        <button class="btn btn btn-default" onclick="javascript:logout()">
+            <span class="icon icon-logout"></span>
           </button>
       </div>
     </div>

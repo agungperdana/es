@@ -15,21 +15,67 @@
 	  			window.location="/backoffice/settings";
 	  		}
 		/*]]>*/
+		
+		function logout() {
+  			window.location=/*[[@{/logout}]]*/
+  		}
 	</script>
   	<link rel="stylesheet" type="text/css" th:href="@{/css/photon.css}"/>
-  	<title>USER - ADD</title>
+  	<link rel="stylesheet" type="text/css" th:href="@{/css/jquery-ui.min.css}"/>
+  	<script data-th-src="@{/js/jquery.min.js}"></script>
+  	<script data-th-src="@{/js/jquery-ui.min.js}"></script>
+  	<script>
+		$( function() {
+			$( "#tabs" ).tabs();
+			
+			$("#solution-add").click(function(e){
+				
+				e.preventDefault();
+				
+				var row = $("<tr></tr>")
+							.append($('<td><input type="checkbox"/></td>'))
+							.append($('<td><input type="hidden" name="solusiID" value="0"/><input name="gejala" style="width:100%"/></td>'))
+							.append($('<td><input name="jenis"  style="width:100%"/></td>'))
+							.append($('<td><input name="solusi" style="width:100%"/></td>'));
+				
+				$("#solution-body").append(row);
+			});
+			
+			$("#solution-remove").click(function(e){
+				
+				e.preventDefault();
+				
+				$("#solution-body").find('tr').each(function(){
+					
+					var row = $(this);
+					row.find('td').each(function(){
+						
+						var td = $(this);
+						td.find(':checkbox').each(function(){
+							console.log(this);
+							if(this.checked) {
+								row.remove();
+							}
+						});
+					});
+				});
+				
+			});
+		});
+	</script>
+  	<title>KASUS (UPDATE)</title>
 </head>
 <body>
 <div class="window">
   <header class="toolbar toolbar-header">
-    <h1 class="title">Backoffice Dashboard .v-0.1.1.Final (FITUR-UPDATE)</h1>
+    <h1 class="title">Backoffice Dashboard .v-0.1.1.Final (KASUS-UPDATE)</h1>
     <div class="toolbar-actions">
       <div class="btn-group">
         <button class="btn btn btn-default" onclick="javascript:home()">
           <span class="icon icon-home"></span>
         </button>
-        <button class="btn btn btn-default" onclick="javascript:setting()">
-            <span class="icon icon-tools"></span>
+        <button class="btn btn btn-default" onclick="javascript:logout()">
+            <span class="icon icon-logout"></span>
           </button>
       </div>
     </div>
@@ -39,7 +85,7 @@
       <div class="pane-sm sidebar">
           <nav class="nav-group">
               <h5 class="nav-group-title">Security</h5>
-              <a class="nav-group-item" th:href="@{/backoffice/users}">
+              <a class="nav-group-item" th:href="@{/backoffice/users(page=0,size=50)}">
                   <span class="icon icon-fitur"></span>
                   User
               </a>
@@ -69,16 +115,79 @@
     		</div>
   		</header>
   		<div class="window-content">
-				<form name="addform" style="padding: 20px;width: 50%;" data-th-action="@{/backoffice/fitur/edit/store}" method="post">
-				<div class="form-group">
-    				<label>Name</label>
-    				<input type="text" class="form-control" data-th-value="${fitur.name}" readonly="readonly" name="name"/>
-  				</div>
-  				<div class="form-group">
-    				<label>Note</label>
-    				<textarea class="form-control" name="note"><th:block data-th-text="${fitur.note}"/></textarea>
-  				</div>
-        		</form>
+			<form name="addform" style="padding: 20px;width: 85%;" data-th-action="@{/backoffice/kasus/edit/store}" method="post">
+ 				<input type="hidden" name="code" data-th-value="${kasus.code}"/>
+ 				<div class="form-group">
+   					<label>Catatan Kasus</label>
+   					<textarea class="form-control" name="note" data-th-text="${kasus.note}"></textarea>
+ 				</div>
+ 				<div id="tabs">
+	  				<ul>
+					    <li><a href="#fitur">Fitur</a></li>
+					    <li><a href="#tabs-2">Solusi</a></li>
+					</ul>
+					<div id="fitur">
+						<table class="table-striped">
+				  		<thead>
+				    	<tr>
+				      		<th>Nama</th>
+				      		<th style="width: 100px">Nilai</th>
+				    	</tr>
+				  		</thead>
+				  		<tbody>
+				  		<tr data-th-each="fitur:${fiturs}">
+				  			<td><input style="width: 100%" readonly="readonly" name="fitur" data-th-value="${fitur.fitur}"/></td>
+				  			<td>
+				  				<select name="fiturevalue">
+				  					<option value="false" data-th-selected="${fitur.value}">Tidak</option>
+				  					<option value="true" data-th-selected="${fitur.value}">Ya</option>
+				  				</select>
+				  			</td>
+				  		</tr>
+				  		</tbody>
+				  		</table>
+					</div>
+					<div id="tabs-2">
+						<header class="toolbar toolbar-header">
+				    		<div class="toolbar-actions">
+				      			<div class="btn-group">
+				      				<button id="solution-add" type="button" class="btn btn-default">
+				            			<span class="icon icon-plus-squared"></span>
+				          			</button>
+				        			<button id="solution-remove" type="button" class="btn btn-default">
+				          				<span class="icon icon-trash"></span>
+				        			</button>
+				      			</div>
+				    		</div>
+				  		</header>
+				  		<table class="table-striped">
+				  		<thead>
+				    	<tr>
+				      		<th style="width: 25px">&nbsp;</th>
+				      		<th>Gejala</th>
+				      		<th>Jenis</th>
+				      		<th>Solusi</th>
+				    	</tr>
+				  		</thead>
+				  		<tbody id="solution-body">
+				  		<tr data-th-each="solusi:${kasus.solutions}">
+				  			<td><input type="checkbox"/></td>
+				  			<td>
+				  				<input type="hidden" name="solusiID" data-th-value="${solusi.id}"/>
+				  				<input type="text" style="width: 100%" name="gejala" data-th-value="${solusi.gejala}"/>
+				  			</td>
+				  			<td>
+				  				<input type="text" style="width: 100%" name="jenis" data-th-value="${solusi.jenis}"/>
+				  			</td>
+				  			<td>
+				  				<input type="text" style="width: 100%" name="solusi" data-th-value="${solusi.description}"/>
+				  			</td>
+				  		</tr>
+				  		</tbody>
+				  		</table>
+					</div>
+				</div>
+       		</form>
   		</div>
   		<footer class="toolbar toolbar-footer">
 		</footer>

@@ -31,18 +31,37 @@ public class FiturController {
             @RequestParam("page")int page, @RequestParam("size")int size, 
             @RequestParam(value="key", required=false) Optional<String> key) {
         
+        int count = 0;
+        if(size < 0) {
+            size = 50;
+        }
+        
+        int total = Page.getPage(size, count);
+        if(total == 1) {
+            page = 0;
+        }
+        else if(page > total) {
+            page = total;
+        }
+        
         Collection<Fitur> fitures = new ArrayList<>();
         
         if(key.isPresent()) {
+            
             fitures.addAll(service.getAllFitures(key.get(), page, size));
+            count = service.count(key.get());
         }
         else {
+            
             fitures.addAll(service.getAllFitures(page, size));
+            count = service.count();
         }
         
         model.addAttribute("fitures", fitures);
-        model.addAttribute("page", page+1);
-        model.addAttribute("totalPage", Page.getPage(size, fitures.size()));
+        model.addAttribute("key", key.orElse(""));
+        model.addAttribute("page", page);
+        model.addAttribute("size", size);
+        model.addAttribute("totalPage", total);
         
         return "/backoffice/fitur/fitures";
     }

@@ -1,7 +1,9 @@
 package com.kratonsolution.es.cbr.model;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -71,5 +73,14 @@ public class Kasus {
     public void addSolution(@NonNull String gejala, @NonNull String jenis, @NonNull String solusi) {
         
         solutions.add(new Solution(this, gejala, jenis, solusi));
+    }
+    
+    public void addSolution(@NonNull String id, @NonNull String gejala, @NonNull String jenis, @NonNull String solusi) {
+        
+        solutions.add(new Solution(id, this, gejala, jenis, solusi));
+    }
+    
+    public List<KasusFitur> getFiturAsList() {
+        return new ArrayList<>(this.fitures);
     }
 }

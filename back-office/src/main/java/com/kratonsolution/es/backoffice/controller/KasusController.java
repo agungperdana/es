@@ -35,30 +35,66 @@ public class KasusController {
     @Autowired
     private FiturService fiturService;
     
+    private Comparator<KasusFitur> comparator = new Comparator<KasusFitur>() {
+        
+        @Override
+        public int compare(KasusFitur o1, KasusFitur o2) {
+            
+            Optional<Fitur> f1 = fiturService.getByName(o1.getFitur());
+            Optional<Fitur> f2 = fiturService.getByName(o2.getFitur());
+            
+            if(f1.isPresent() && f2.isPresent()) {
+                return f1.get().getSequence() - f2.get().getSequence();
+            }
+            
+            return 0;
+        };
+    };
+    
     @RequestMapping("/backoffice/kasuses")
     public String kasuses(Model model,  
             @RequestParam("page")int page, @RequestParam("size")int size, 
             @RequestParam(value="key", required=false) Optional<String> key) {
         
+        int count = 0;
+        
+        if(size <= 0) {
+            size = 50;
+        }
+        
+        int total = Page.getPage(size, count);
+        if(total == 1) {
+            page = 0;
+        }
+        else if(page > total) {
+            page = total;
+        }
+        
         Collection<Kasus> kasuses = new ArrayList<>();
         
         if(key.isPresent()) {
+            
             kasuses.addAll(service.getAllKasuses(key.get(), page, size));
+            count = service.count(key.get());
         }
         else {
+            
             kasuses.addAll(service.getAllKasuses(page, size));
+            count = service.count();
         }
         
         model.addAttribute("kasuses", kasuses);
-        model.addAttribute("page", page+1);
-        model.addAttribute("totalPage", Page.getPage(size, kasuses.size()));
+        model.addAttribute("key", key.orElse(""));
+        model.addAttribute("page", page);
+        model.addAttribute("size", size);
+        model.addAttribute("totalPage", total);
         
         return "/backoffice/kasus/kasuses";
     }
     
     @RequestMapping("/backoffice/kasus/add/pre")
     public String preadd(Model model) {
-
+        
         model.addAttribute("fitures", fiturService.getAllFitures());
         
         return "/backoffice/kasus/add";
@@ -66,12 +102,12 @@ public class KasusController {
     
     @RequestMapping("/backoffice/kasus/add/store")
     public String add(@RequestParam("fitur")String[] fitur, 
-                      @RequestParam("fiturevalue")boolean[] fiturevalue,
-                      @RequestParam("gejala")String[] gejala,
-                      @RequestParam("jenis")String[] jenis,
-                      @RequestParam("solusi")String[] solusi,
-                      @RequestParam("note")String note) {
-
+            @RequestParam("fiturevalue")boolean[] fiturevalue,
+            @RequestParam("gejala")String[] gejala,
+            @RequestParam("jenis")String[] jenis,
+            @RequestParam("solusi")String[] solusi,
+            @RequestParam("note")String note) {
+        
         Kasus kasus = new Kasus("init", note);
         
         for(int idx=0; idx<fitur.length; idx++) {
@@ -84,21 +120,7 @@ public class KasusController {
         
         List<KasusFitur> sorted = new ArrayList<>(kasus.getFitures());
         
-        Collections.sort(sorted, new Comparator<KasusFitur>() {
-
-            @Override
-            public int compare(KasusFitur o1, KasusFitur o2) {
-
-                Optional<Fitur> f1 = fiturService.getByName(o1.getFitur());
-                Optional<Fitur> f2 = fiturService.getByName(o2.getFitur());
-             
-                if(f1.isPresent() && f2.isPresent()) {
-                    return f1.get().getSequence() - f2.get().getSequence();
-                }
-                
-                return 0;
-            }
-        });
+        Collections.sort(sorted, comparator);
         
         StringBuilder builder = new StringBuilder();
         
@@ -112,19 +134,39 @@ public class KasusController {
     
     @RequestMapping("/backoffice/kasus/edit/pre/{id}")
     public String preedit(Model model, @PathVariable String id) {
-
-        model.addAttribute("kasus", service.getById(id).orElse(null));
+        
+        Optional<Kasus> opt = service.getById(id);
+        if(opt.isPresent()) {
+            
+            List<KasusFitur> fiturs = opt.get().getFiturAsList();
+            fiturs.sort(comparator);
+            
+            model.addAttribute("kasus", opt.get());
+            model.addAttribute("fiturs", fiturs);
+        }
         
         return "/backoffice/kasus/edit";
     }
     
     @PostMapping("/backoffice/kasus/edit/store")
-    public String edit(@RequestParam("name") String name, @RequestParam(value="note", required=false)Optional<String> note) {
-
-//        service.update(new Kasus(name, note.orElse(null)));
+    public String edit(@RequestParam("code")String code,
+                       @RequestParam("solusiID")String[] solusiID,
+                       @RequestParam("gejala")String[] gejala,
+                       @RequestParam("jenis")String[] jenis,
+                       @RequestParam("solusi")String[] solusi,
+                       @RequestParam("note")String note) {
+        
+        Kasus kasus = new Kasus(code, note);
+        
+        for(int idx=0; idx<gejala.length; idx++) {
+            kasus.addSolution(solusiID[idx], gejala[idx], jenis[idx], solusi[idx]);
+        }
+        
+        service.update(kasus);
+        
         return "redirect:/backoffice/kasuses?page=0&size=50";
     }
-
+    
     @RequestMapping("/backoffice/kasus/delete/{id}")
     public String delete(@PathVariable String id) {
         

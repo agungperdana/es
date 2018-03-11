@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,22 +30,30 @@ public class FiturService {
     
     @Transactional(readOnly=true, propagation=Propagation.SUPPORTS)
     public List<Fitur> getAllFitures() {
-        return repo.findAll();
+        return repo.findAll(new Sort(Sort.Direction.ASC, "sequence"));
     }
     
     @Transactional(readOnly=true, propagation=Propagation.SUPPORTS)
     public List<Fitur> getAllFitures(@NonNull String key) {
-        return repo.findAllByNameLike(key);
+        return repo.findAll(key);
     }
     
     @Transactional(readOnly=true, propagation=Propagation.SUPPORTS)
     public List<Fitur> getAllFitures(int page, int size) {
-        return repo.findAll(new PageRequest(page, size)).getContent();
+        return repo.findAll(new PageRequest(page, size, new Sort(Direction.ASC, "sequence"))).getContent();
     }
     
     @Transactional(readOnly=true, propagation=Propagation.SUPPORTS)
     public List<Fitur> getAllFitures(@NonNull String key,int page, int size) {
-        return repo.findAllByNameLike(new PageRequest(page, size), key);
+        return repo.findAll(new PageRequest(page, size, new Sort(Direction.ASC, "sequence")), key);
+    }
+    
+    public int count() {
+        return (int)repo.count();
+    }
+    
+    public int count(@NonNull String key) {
+        return repo.count(key).intValue();
     }
     
     public Optional<Fitur> getById(@NonNull String id) {

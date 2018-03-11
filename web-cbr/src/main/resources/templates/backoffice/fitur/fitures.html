@@ -2,13 +2,20 @@
 <html lang="en" class="no-js" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
   	<link rel="stylesheet" type="text/css" th:href="@{/css/photon.css}"/>
-  	<script data-th-inline="text">
+  	<link rel="stylesheet" type="text/css" th:href="@{/css/jquery-ui.min.css}"/>
+  	<script data-th-src="@{/js/jquery.min.js}"></script>
+  	<script data-th-src="@{/js/jquery-ui.min.js}"></script>
+  	<script data-th-inline="javascript">
   		function go(url) {
   			window.location = url;
   		}
   		
   		function home() {
   			window.location="/backoffice/home";
+  		}
+  		
+  		function logout() {
+  			window.location=/*[[@{/logout}]]*/
   		}
   		
   		function search() {
@@ -26,8 +33,47 @@
   			}
   		}
   		
+  		function first() {
+  			window.location=/*[[@{/backoffice/fitures(page=0, size=${size}, key=${key})}]]*/+";"
+  		}
+  		
+  		function pref() {
+  			window.location=[[@{/backoffice/fitures(page=${page-1}, size=${size}, key=${key})}]]
+  		}
+  		
+  		function next() {
+  			window.location=[[@{/backoffice/fitures(page=${page+1}, size=${size}, key=${key})}]]
+  		}
+  		
+  		function last() {
+  			window.location=[[@{/backoffice/fitures(page=${totalPage-1}, size=${size}, key=${key})}]]
+  		}
+  		
+  		$(function(){
+  			
+  			var dialog = $( "#dialog-form" ).dialog({
+  	  	      autoOpen: false,
+  	  	      height: 200,
+  	  	      width: 350,
+  	  	      modal: true,
+  	  	      buttons: {
+  	  	        "Search": function(){
+  	  	        	document.searchForm.submit();
+  	  	        },
+  	  	        Cancel: function() {
+  	  	          dialog.dialog( "close" );
+  	  	        }
+  	  	      }
+  	  	    });
+  			
+  			$("#search-button").click(function(e){
+  				
+  				e.preventDefault();
+  				dialog.dialog("open");
+  			});
+  		});
   	</script>
-  	<title>Users</title>
+  	<title>FITUR</title>
 </head>
 <body>
 <div class="window">
@@ -38,8 +84,8 @@
         <button class="btn btn btn-default" onclick="javascript:home()">
           <span class="icon icon-home"></span>
         </button>
-        <button class="btn btn btn-default" onclick="javascript:setting()">
-            <span class="icon icon-tools"></span>
+        <button class="btn btn btn-default" onclick="javascript:logout()">
+            <span class="icon icon-logout"></span>
           </button>
       </div>
     </div>
@@ -72,7 +118,7 @@
         			<button class="btn btn btn-default" onclick="javascript:initadd()">
           				<span class="icon icon-plus-circled"></span>
         			</button>
-        			<button class="btn btn btn-default" onclick="javascript:search()">
+        			<button id="search-button" class="btn btn btn-default">
             			<span class="icon icon-search"></span>
           			</button>
       			</div>
@@ -108,19 +154,19 @@
   		<footer class="toolbar toolbar-footer">
     		<div class="toolbar-actions">
       			<div class="btn-group">
-    				<button class="btn btn-default">
+    				<button class="btn btn-default" onclick="javascript:first();">
 	         			<span class="icon icon-to-start"></span>
 	       			</button>
-	       			<button class="btn btn-default">
+	       			<button class="btn btn-default" onclick="javascript:pref();">
 	         			<span class="icon icon-fast-backward"></span>
 	       			</button>
 	       			<button class="btn btn-default">
-	         			Page <th:block th:text="${page}"/> of <th:block th:text="${totalPage}"/>
+	         			Page <th:block th:text="${page+1}"/> of <th:block th:text="${totalPage}"/>
 	       			</button>
-	       			<button class="btn btn-default">
+	       			<button class="btn btn-default" onclick="javascript:next();">
 	         			<span class="icon icon-fast-forward"></span>
 	       			</button>
-	       			<button class="btn btn-default">
+	       			<button class="btn btn-default"  onclick="javascript:last();">
 	         			<span class="icon icon-to-end"></span>
 	       			</button>
        			</div>
@@ -130,6 +176,16 @@
       </div>
     </div>
   </div>
+</div>
+
+<div id="dialog-form" title="Search">
+  	<form name="searchForm" data-th-action="@{/backoffice/fitures}">
+      <label for="name">Key</label>
+      <input type="text" style="width: 100%" name="key" data-th-value="${key}" class="text ui-widget-content ui-corner-all"/>
+      <input type="hidden" name="page" data-th-value="${page}"/>
+      <input type="hidden" name="size" data-th-value="${size}"/>
+      <input type="submit" tabindex="-1" style="position:absolute; top:-1000px"/>
+  </form>
 </div>
 </body>
 </html>

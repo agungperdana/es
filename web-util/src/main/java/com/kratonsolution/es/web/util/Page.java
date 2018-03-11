@@ -13,7 +13,7 @@ public class Page {
         if(total > rowPerPage) {
             
             int mod = total % rowPerPage;
-            page += (total-mod)/rowPerPage;
+            page = (total-mod)/rowPerPage+(mod > 0?1:0);
         }
         
         return page;
