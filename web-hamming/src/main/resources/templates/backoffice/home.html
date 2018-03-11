@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  	<link rel="stylesheet" type="text/css" th:href="@{/css/photon.css}"/>
+  	<script data-th-inline="javascript">
+		function logout() {
+  			window.location=/*[[@{/logout}]]*/
+  		}
+  	</script>
+</head>
+<body>
+<div class="window">
+  <header class="toolbar toolbar-header">
+    <h1 class="title">Backoffice Dashboard .v-0.1.1.Final (HOME)</h1>
+    <div class="toolbar-actions">
+      <div class="btn-group">
+        <button class="btn btn btn-default">
+          <span class="icon icon-home"></span>
+        </button>
+        <button class="btn btn btn-default" onclick="javascript:logout()">
+            <span class="icon icon-logout"></span>
+          </button>
+      </div>
+    </div>
+  </header>
+  <div class="window-content">
+    <div class="pane-group">
+      <div class="pane-sm sidebar">
+          <nav class="nav-group">
+              <h5 class="nav-group-title">Security</h5>
+              <a class="nav-group-item" th:href="@{/backoffice/users(page=0,size=50)}">
+                  <span class="icon icon-user"></span>
+                  User
+              </a>
+              <h5 class="nav-group-title">CBR Setting</h5>
+              <a class="nav-group-item" th:href="@{/backoffice/fitures(page=0,size=50)}">
+                  <span class="icon icon-shareable"></span>
+                  Fitur
+              </a>
+              <a class="nav-group-item" th:href="@{/backoffice/kasuses(page=0,size=50)}">
+                  <span class="icon icon-google-circles"></span>
+                  Kasus
+              </a>
+          </nav>
+      </div>
+      <div class="pane"></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

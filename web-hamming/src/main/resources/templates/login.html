@@ -1,25 +1,46 @@
 <!DOCTYPE html>
 
 <html lang="en" class="no-js" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-   
-    <head>
-        <meta charset="utf-8"/>
-        <title>Backoffice Dashboard v-0.1.1.Final</title>
-        <link rel="stylesheet" th:href="@{/css/photon.css}">
-    </head>
-    <body>
-    	<div class="window">
-    		<div class="window-content">
-    			<header class="toolbar toolbar-header">
-  					<h1 class="title">Admin Dashboard Login</h1>
-				</header>
-    			<form th:action="@{/login}">
-					<input type="text" name="username" class="form-control" placeholder="User Name">
-					<input type="password" name="password" class="form-control" placeholder="User Name">
-					<button type="submit" class="btn btn-form btn-primary">Sign In</button>
-				</form>	
-    		</div>
-    	</div>
-    </body>
+<head>
 
+	<title>Backoffice Dashboard .v-0.1.1.Final</title>
+	<meta charset="utf-8" />
+	<link type="text/css" rel="stylesheet" th:href="@{/css/login-css.css}" media="screen" />
+</head>
+<body>
+
+	<div id="wrapper">
+		<div id="wrappertop"></div>
+
+		<div id="wrappermiddle">
+			<h2>Login</h2>
+			<form th:action="@{/login}" method="post">
+			<div id="username_input">
+				<div id="username_inputleft"></div>
+				<div id="username_inputmiddle">
+					<input type="text" name="username" id="url" placeholder="Username"/>
+					<img id="url_user" th:src="@{/img/mailicon.png}" alt=""/>
+				</div>
+				<div id="username_inputright"></div>
+			</div>
+			<div id="password_input">
+
+				<div id="password_inputleft"></div>
+				<div id="password_inputmiddle">
+					<input type="password" name="password" id="url" placeholder="Password"/>
+					<img id="url_password" th:src="@{/img/passicon.png}" alt=""/>
+				</div>
+				<div id="password_inputright"></div>
+			</div>
+			<div id="submit">
+				<input type="image" th:src="@{/img/submit_hover.png}" id="submit1" value="Sign In"/>
+				<input type="image" th:src="@{/img/submit.png}" id="submit2" value="Sign In"/>
+			</div>
+			</form>
+			<span th:if="${param.error != null}" th:text="${param.error}"></span>
+		</div>
+
+		<div id="wrapperbottom"></div>
+	</div>
+</body>
 </html>
