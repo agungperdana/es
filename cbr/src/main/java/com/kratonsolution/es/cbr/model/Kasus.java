@@ -54,7 +54,7 @@ public class Kasus {
     private Set<KasusFitur> fitures = new HashSet<>();
     
     @OneToMany(mappedBy="parent", cascade=CascadeType.ALL, fetch=FetchType.LAZY, orphanRemoval=true)
-    private Set<Solution> solutions = new HashSet<>();
+    private Set<KasusSolusi> solutions = new HashSet<>();
     
     Kasus() {}
     
@@ -70,14 +70,9 @@ public class Kasus {
         fitures.add(new KasusFitur(this, fitur, selected));
     }
     
-    public void addSolution(@NonNull String gejala, @NonNull String jenis, @NonNull String solusi) {
+    public void addSolution(@NonNull Solution solution) {
         
-        solutions.add(new Solution(this, gejala, jenis, solusi));
-    }
-    
-    public void addSolution(@NonNull String id, @NonNull String gejala, @NonNull String jenis, @NonNull String solusi) {
-        
-        solutions.add(new Solution(id, this, gejala, jenis, solusi));
+        solutions.add(new KasusSolusi(this, solution));
     }
     
     public List<KasusFitur> getFiturAsList() {

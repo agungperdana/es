@@ -2,7 +2,7 @@
 <html lang="en" class="no-js" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
   	<link rel="stylesheet" type="text/css" th:href="@{/css/photon.css}"/>
-	<link rel="stylesheet" type="text/css" th:href="@{/css/jquery-ui.min.css}"/>
+  	<link rel="stylesheet" type="text/css" th:href="@{/css/jquery-ui.min.css}"/>
   	<script data-th-src="@{/js/jquery.min.js}"></script>
   	<script data-th-src="@{/js/jquery-ui.min.js}"></script>
   	<script data-th-inline="javascript">
@@ -18,8 +18,12 @@
   			window.location=/*[[@{/logout}]]*/
   		}
   		
+  		function search() {
+  			window.location="/backoffice/home";
+  		}
+  		
   		function initadd() {
-  			window.location="/backoffice/user/add/pre";
+  			window.location="/backoffice/solution/add/pre";
   		}
 	
   		function remove(url) {
@@ -30,19 +34,19 @@
   		}
   		
   		function first() {
-  			window.location=/*[[@{/backoffice/users(page=0, size=${size}, key=${key})}]]*/+";"
+  			window.location=/*[[@{/backoffice/fitures(page=0, size=${size}, key=${key})}]]*/+";"
   		}
   		
   		function pref() {
-  			window.location=/*[[@{/backoffice/users(page=${page-1}, size=${size}, key=${key})}]]*/+";"
+  			window.location=[[@{/backoffice/fitures(page=${page-1}, size=${size}, key=${key})}]]
   		}
   		
   		function next() {
-  			window.location=/*[[@{/backoffice/users(page=${page+1}, size=${size}, key=${key})}]]*/+";"
+  			window.location=[[@{/backoffice/fitures(page=${page+1}, size=${size}, key=${key})}]]
   		}
   		
   		function last() {
-  			window.location=/*[[@{/backoffice/users(page=${totalPage-1}, size=${size}, key=${key})}]]*/+";"
+  			window.location=[[@{/backoffice/fitures(page=${totalPage-1}, size=${size}, key=${key})}]]
   		}
   		
   		$(function(){
@@ -69,12 +73,12 @@
   			});
   		});
   	</script>
-  	<title>Users</title>
+  	<title>FITUR</title>
 </head>
 <body>
 <div class="window">
   <header class="toolbar toolbar-header">
-    <h1 class="title">Backoffice Dashboard .v-0.1.1.Final (USER)</h1>
+    <h1 class="title">Backoffice Dashboard .v-0.1.1.Final (FITUR)</h1>
     <div class="toolbar-actions">
       <div class="btn-group">
         <button class="btn btn btn-default" onclick="javascript:home()">
@@ -91,8 +95,8 @@
       <div class="pane-sm sidebar">
           <nav class="nav-group">
               <h5 class="nav-group-title">Security</h5>
-              <a class="nav-group-item active" th:href="@{/backoffice/users(page=0,size=50)}">
-                  <span class="icon icon-user"></span>
+              <a class="nav-group-item" th:href="@{/backoffice/users(page=0, size=50)}">
+                  <span class="icon icon-solution"></span>
                   User
               </a>
               <h5 class="nav-group-title">CBR Setting</h5>
@@ -100,7 +104,7 @@
                   <span class="icon icon-shareable"></span>
                   Fitur
               </a>
-              <a class="nav-group-item" th:href="@{/backoffice/solutions(page=0,size=50)}">
+              <a class="nav-group-item active" th:href="@{/backoffice/solutions(page=0,size=50)}">
                   <span class="icon icon-feather"></span>
                   Solusi
               </a>
@@ -129,24 +133,26 @@
 	  		<thead>
 	    	<tr>
 	    		<th style="width: 125px">&nbsp;</th>
-	      		<th>Name</th>
-	      		<th style="width: 125px">Enabled</th>
+	      		<th style="width: 200px">Gejala</th>
+	      		<th style="width: 200px">Jenis</th>
+	      		<th>Note</th>
 	    	</tr>
 	  		</thead>
 	  		<tbody>
-	    	<tr data-th-each="user : ${users}">
+	    	<tr data-th-each="solution : ${solutions}">
 	    		<td>
 	      			<div class="btn-group">
-    					<button class="btn btn-mini btn-default" data-th-onclick="'remove(\'/backoffice/user/delete/' + ${user.id} + '\');'">
+    					<button class="btn btn-mini btn-default" data-th-onclick="'remove(\'/backoffice/solution/delete/' + ${solution.id} + '\');'">
 	         				<span class="icon icon-trash"></span>
 	       				</button>
-	       				<button class="btn btn-mini btn-default" data-th-onclick="'go(\'/backoffice/user/edit/pre/' + ${user.id} + '\');'">
+	       				<button class="btn btn-mini btn-default" data-th-onclick="'go(\'/backoffice/solution/edit/pre/' + ${solution.id} + '\');'">
 	         				<span class="icon icon-pencil"></span>
 	       				</button>
 	       			</div>
 	      		</td>
-	      		<td data-th-text="${user.username}"/>
-	      		<td data-th-text="${user.enabled}"/>
+	      		<td data-th-text="${solution.gejala}"/>
+	      		<td data-th-text="${solution.jenis}"/>
+	      		<td data-th-text="${solution.description}"/>
 	    	</tr>
 	  		</tbody>
 			</table>
@@ -177,8 +183,9 @@
     </div>
   </div>
 </div>
+
 <div id="dialog-form" title="Search">
-  	<form name="searchForm" data-th-action="@{/backoffice/users}">
+  	<form name="searchForm" data-th-action="@{/backoffice/fitures}">
       <label for="name">Key</label>
       <input type="text" style="width: 100%" name="key" data-th-value="${key}" class="text ui-widget-content ui-corner-all"/>
       <input type="hidden" name="page" data-th-value="${page}"/>

@@ -2,7 +2,6 @@ package com.kratonsolution.es.cbr.application;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Vector;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -12,8 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.base.Preconditions;
 import com.kratonsolution.es.cbr.model.Kasus;
-import com.kratonsolution.es.cbr.model.Solution;
 import com.kratonsolution.es.cbr.repository.KasusRepository;
+import com.kratonsolution.es.cbr.repository.SolutionRepository;
 
 import lombok.NonNull;
 
@@ -27,6 +26,9 @@ public class KasusService {
  
     @Autowired
     private KasusRepository repo;
+    
+    @Autowired
+    private SolutionRepository solutionRepo;
 
     @Transactional(readOnly=true, propagation=Propagation.SUPPORTS)
     public List<Kasus> getAllKasuses() {
@@ -73,21 +75,21 @@ public class KasusService {
         Optional<Kasus> opt = repo.findOneByCode(kasus.getCode());
         Preconditions.checkState(opt.isPresent(), "Kasus does not exist.");
         
-        Vector<Solution> solutions = new Vector<>(opt.get().getSolutions());
-        opt.get().getSolutions().clear();
-        
-        kasus.getSolutions().stream().forEach(solusi -> {
-            
-            Optional<Solution> solOpt = solutions.stream().filter(p -> p.getId().equals(solusi.getId())).findFirst();
-            if(solOpt.isPresent()) {
-                
-                solOpt.get().setDescription(solusi.getDescription());
-                opt.get().getSolutions().add(solOpt.get());
-            }
-            else {
-                opt.get().addSolution(solusi.getGejala(), solusi.getJenis(), solusi.getDescription());
-            }
-        });
+//        Vector<Solution> solutions = new Vector<>(opt.get().getSolutions());
+//        opt.get().getSolutions().clear();
+//        
+//        kasus.getSolutions().stream().forEach(solusi -> {
+//            
+//            Optional<Solution> solOpt = solutions.stream().filter(p -> p.getId().equals(solusi.getId())).findFirst();
+//            if(solOpt.isPresent()) {
+//                
+//                solOpt.get().setDescription(solusi.getDescription());
+//                opt.get().getSolutions().add(solOpt.get());
+//            }
+//            else {
+//                opt.get().addSolution(solusi.getGejala(), solusi.getJenis(), solusi.getDescription());
+//            }
+//        });
         
         repo.save(opt.get());
     }

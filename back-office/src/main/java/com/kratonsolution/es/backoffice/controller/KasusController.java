@@ -114,9 +114,9 @@ public class KasusController {
             kasus.addFitur(fitur[idx], fiturevalue[idx]);
         }
         
-        for(int idx=0; idx<gejala.length; idx++) {
-            kasus.addSolution(gejala[idx], jenis[idx], solusi[idx]);
-        }
+//        for(int idx=0; idx<gejala.length; idx++) {
+//            kasus.addSolution(gejala[idx], jenis[idx], solusi[idx]);
+//        }
         
         List<KasusFitur> sorted = new ArrayList<>(kasus.getFitures());
         
@@ -158,9 +158,9 @@ public class KasusController {
         
         Kasus kasus = new Kasus(code, note);
         
-        for(int idx=0; idx<gejala.length; idx++) {
-            kasus.addSolution(solusiID[idx], gejala[idx], jenis[idx], solusi[idx]);
-        }
+//        for(int idx=0; idx<gejala.length; idx++) {
+//            kasus.addSolution(solusiID[idx], gejala[idx], jenis[idx], solusi[idx]);
+//        }
         
         service.update(kasus);
         

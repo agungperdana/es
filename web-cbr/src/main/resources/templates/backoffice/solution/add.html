@@ -4,7 +4,7 @@
 	<script data-th-inline="javascript">
 		/*<![CDATA[*/
 			function back() {
-  				window.location.replace(/*[[@{/backoffice/users(page=0,size=50)}]]*/);
+  				window.location.replace(/*[[@{/backoffice/solutions(page=0,size=50)}]]*/);
   			}
 			
 	  		function home() {
@@ -21,12 +21,12 @@
   		}
 	</script>
   	<link rel="stylesheet" type="text/css" th:href="@{/css/photon.css}"/>
-  	<title>USER (UPDATE)</title>
+  	<title>FITUR (ADD)</title>
 </head>
 <body>
 <div class="window">
   <header class="toolbar toolbar-header">
-    <h1 class="title">Backoffice Dashboard .v-0.1.1.Final (USER-UPDATE)</h1>
+    <h1 class="title">Backoffice Dashboard .v-0.1.1.Final (SOLUSI-ADD)</h1>
     <div class="toolbar-actions">
       <div class="btn-group">
         <button class="btn btn btn-default" onclick="javascript:home()">
@@ -43,8 +43,8 @@
       <div class="pane-sm sidebar">
           <nav class="nav-group">
               <h5 class="nav-group-title">Security</h5>
-              <a class="nav-group-item active" th:href="@{/backoffice/users(page=0,size=50)}">
-                  <span class="icon icon-user"></span>
+              <a class="nav-group-item" th:href="@{/backoffice/users(page=0,size=50)}">
+                  <span class="icon icon-fitur"></span>
                   User
               </a>
               <h5 class="nav-group-title">CBR Setting</h5>
@@ -52,7 +52,7 @@
                   <span class="icon icon-shareable"></span>
                   Fitur
               </a>
-              <a class="nav-group-item" th:href="@{/backoffice/solutions(page=0,size=50)}">
+              <a class="nav-group-item active" th:href="@{/backoffice/solutions(page=0,size=50)}">
                   <span class="icon icon-feather"></span>
                   Solusi
               </a>
@@ -77,19 +77,18 @@
     		</div>
   		</header>
   		<div class="window-content">
-				<form name="addform" style="padding: 20px;width: 50%;" data-th-action="@{/backoffice/user/edit/store}" method="post">
+				<form name="addform" style="padding: 20px;width: 50%;" data-th-action="@{/backoffice/solution/add/store}" method="post">
 				<div class="form-group">
-    				<label>Name/Email</label>
-    				<input type="text" class="form-control" data-th-value="${user.username}" readonly="readonly" name="name"/>
+    				<label>Gejala</label>
+    				<input type="text" class="form-control" placeholder="Gejala Penyakit" name="gejala"/>
   				</div>
   				<div class="form-group">
-    				<label>Password</label>
-    				<input type="password" class="form-control" data-th-value="${user.password}" readonly="readonly" name="password"/>
+    				<label>Jenis</label>
+    				<input type="text" class="form-control" placeholder="Jenis Penyakit" name="jenis"/>
   				</div>
-  				<div class="checkbox">
-    				<label>
-      					<input type="checkbox" name="enabled" data-th-checked="${user.enabled}"/> Enabled
-    				</label>
+  				<div class="form-group">
+    				<label>Solusi</label>
+    				<textarea class="form-control" name="description"></textarea>
   				</div>
         		</form>
   		</div>
