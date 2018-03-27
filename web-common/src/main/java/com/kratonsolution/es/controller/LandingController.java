@@ -14,4 +14,19 @@ public class LandingController {
     public String index() {
         return "index";
     }
+    
+    @RequestMapping("/konsultasi.next")
+    public String konsultasi() {
+        return "konsultasi";
+    }
+    
+    @RequestMapping("/bantuan.next")
+    public String bantuan() {
+        return "bantuan";
+    }
+    
+    @RequestMapping("/kontak.next")
+    public String kontak() {
+        return "kontak";
+    }
 }
