@@ -18,7 +18,7 @@ body {
 	line-height: 20px;
 	min-width: 998px;
 	border-top:3px solid #919191;
-	background:url(../img/BG.jpg) repeat;
+	background:url(../images/BG.jpg) repeat;
 }
 #wrapper {	
 	padding: 70px 0 0 0px;
@@ -31,17 +31,17 @@ body {
 }
 
 #wrappertop {
-	background:url(../img/wrapper_top.png) no-repeat;
+	background:url(../images/wrapper_top.png) no-repeat;
 	height:22px;
 }
 
 #wrappermiddle {
-	background:url(../img/wrapper_middle.png) repeat-y;
+	background:url(../images/wrapper_middle.png) repeat-y;
 	height:240px;
 }
 
 #wrapperbottom {
-	background:url(../img/wrapper_bottom.png) no-repeat;
+	background:url(../images/wrapper_bottom.png) no-repeat;
 	height:22px;
 }
 
@@ -65,21 +65,21 @@ body {
 
 #username_inputleft {
 	float:left;
-	background:url(../img/input_left.png) no-repeat;
+	background:url(../images/input_left.png) no-repeat;
 	width:12px;
 	height:50px;
 }
 
 #username_inputmiddle {
 	float:left;
-	background:url(../img/input_middle.png) repeat-x;
+	background:url(../images/input_middle.png) repeat-x;
 	width:276px;
 	height:50px;
 }
 
 #username_inputright {
 	float:left;
-	background:url(../img/input_right.png) no-repeat;
+	background:url(../images/input_right.png) no-repeat;
 	width:12px;
 	height:50px;
 }
@@ -114,21 +114,21 @@ body {
 
 #password_inputleft {
 	float:left;
-	background:url(../img/input_left.png) no-repeat;
+	background:url(../images/input_left.png) no-repeat;
 	width:12px;
 	height:50px;
 }
 
 #password_inputmiddle {
 	float:left;
-	background:url(../img/input_middle.png) repeat-x;
+	background:url(../images/input_middle.png) repeat-x;
 	width:276px;
 	height:50px;
 }
 
 #password_inputright {
 	float:left;
-	background:url(../img/input_right.png) no-repeat;
+	background:url(../images/input_right.png) no-repeat;
 	width:12px;
 	height:50px;
 }

@@ -1,7 +1,5 @@
 package com.kratonsolution.es.cbr.application;
 
-import com.kratonsolution.es.cbr.model.Result;
-
 import lombok.NonNull;
 
 /**

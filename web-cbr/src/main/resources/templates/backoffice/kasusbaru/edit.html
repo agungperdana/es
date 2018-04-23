@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en" class="no-js" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head data-th-replace="fragments/backoffice-head :: head"></head>
+  <body>
+    <nav data-th-replace="fragments/backoffice-menu :: menu(home='active', web='')"></nav>
+
+	<div class="container-fluid" id="main">
+	    <div class="row row-offcanvas row-offcanvas-left">
+			<div data-th-replace="fragments/backoffice-navigation :: navbar"></div>
+		
+        	<div class="col-md-9 col-lg-10 main">
+            	<h1 class="display-4 d-none d-sm-block">Manajemen Data Basis Kasus</h1>
+	            <div class="col-lg-12 col-md-8">
+	            	<ul class="nav nav-tabs" id="myTab" role="tablist">
+					  	<li class="nav-item">
+	  						<a class="nav-link" id="binaries-tab" data-toggle="tab" href="#binaries" role="tab" aria-controls="binaries" aria-selected="true">Binari</a>
+						</li>
+					  	<li class="nav-item">
+							<a class="nav-link active" id="solutions-tab" data-toggle="tab" href="#solutions" role="tab" aria-controls="solutions" aria-selected="true">Solusi</a>
+					  	</li>
+					</ul>
+					<form name="addform" style="padding: 20px;width: 50%;" data-th-action="@{/backoffice/kasusbaru/edit/store}" method="post">
+					<div class="tab-content" id="myTabContent">
+					  <div class="tab-pane fade" id="binaries" role="tabpanel" aria-labelledby="binaries-tab">
+						<div class="form-group">
+		    				<label>1.Apakah anak merasakan mual dan muntah</label>
+		    				<select class="form-control" name="fitur1">
+		    					<option value="false" >Tidak</option>
+		    					<option value="true" data-th-selected="${kasusbaru.fitur1}">Ya</option>
+		    				</select>
+		  				</div>
+		  				<div class="form-group">
+		    				<label>2.Apakah anak merasanak mual dan tidak muntah</label>
+		    				<select class="form-control" name="fitur2">
+		    					<option value="false" >Tidak</option>
+		    					<option value="true" data-th-selected="${kasusbaru.fitur2}">Ya</option>
+		    				</select>
+		  				</div>
+		  				<div class="form-group">
+		    				<label>3.Apakah anak mengalami perut kembung</label>
+		    				<select class="form-control" name="fitur3">
+		    					<option value="false" >Tidak</option>
+		    					<option value="true" data-th-selected="${kasusbaru.fitur3}">Ya</option>
+		    				</select>
+		  				</div>
+		  				<div class="form-group">
+		    				<label>4.Apakah anak merasakan perut kosong dan lapar</label>
+		    				<select class="form-control" name="fitur4">
+		    					<option value="false" >Tidak</option>
+		    					<option value="true" data-th-selected="${kasusbaru.fitur4}">Ya</option>
+		    				</select>
+		  				</div>
+		  				<div class="form-group">
+		    				<label>5.Apakah anak merasakan pegal-pegal di punggung</label>
+		    				<select class="form-control" name="fitur5">
+		    					<option value="false" >Tidak</option>
+		    					<option value="true" data-th-selected="${kasusbaru.fitur5}">Ya</option>
+		    				</select>
+		  				</div>
+		  				<div class="form-group">
+		    				<label>6.Apakah anak merasakan asam dimulut</label>
+		    				<select class="form-control" name="fitur6">
+		    					<option value="false" >Tidak</option>
+		    					<option value="true" data-th-selected="${kasusbaru.fitur6}">Ya</option>
+		    				</select>
+		  				</div>
+		  				<div class="form-group">
+		    				<label>7.Apakah perut anak terasa perih</label>
+		    				<select class="form-control" name="fitur7">
+		    					<option value="false" >Tidak</option>
+		    					<option value="true" data-th-selected="${kasusbaru.fitur7}">Ya</option>
+		    				</select>
+		  				</div>
+		  				<div class="form-group">
+		    				<label>8.Apakah nafsu makan anak menurun</label>
+		    				<select class="form-control" name="fitur8">
+		    					<option value="false" >Tidak</option>
+		    					<option value="true" data-th-selected="${kasusbaru.fitur8}">Ya</option>
+		    				</select>
+		  				</div>
+		  				<div class="form-group">
+		    				<label>9.Apakah anak merasakan susah untuk buang gas</label>
+		    				<select class="form-control" name="fitur9">
+		    					<option value="false" >Tidak</option>
+		    					<option value="true" data-th-selected="${kasusbaru.fitur9}">Ya</option>
+		    				</select>
+		  				</div>
+		  				<div class="form-group">
+		    				<label>10.Apakah perut anak menjadi bengkak</label>
+		    				<select class="form-control" name="fitur10">
+		    					<option value="false" >Tidak</option>
+		    					<option value="true" data-th-selected="${kasusbaru.fitur10}">Ya</option>
+		    				</select>
+		  				</div>
+		  				<div class="form-group">
+		    				<label>11.Apakah anak merasakan pusing dan sakit kepala</label>
+		    				<select class="form-control" name="fitur11">
+		    					<option value="false" >Tidak</option>
+		    					<option value="true" data-th-selected="${kasusbaru.fitur11}">Ya</option>
+		    				</select>
+		  				</div>
+		  				<div class="form-group">
+		    				<label>12.Apakah perut anak terasa penuh</label>
+		    				<select class="form-control" name="fitur12">
+		    					<option value="false" >Tidak</option>
+		    					<option value="true" data-th-selected="${kasusbaru.fitur12}">Ya</option>
+		    				</select>
+		  				</div>
+		  				<div class="form-group">
+		    				<label>13.Apakah perut anak sering berbunyi</label>
+		    				<select class="form-control" name="fitur13">
+		    					<option value="false" >Tidak</option>
+		    					<option value="true" data-th-selected="${kasusbaru.fitur13}">Ya</option>
+		    				</select>
+		  				</div>
+		  				<div class="form-group">
+		    				<label>14.Apakah anak merasakan demam ringan</label>
+		    				<select class="form-control" name="fitur14">
+		    					<option value="false" >Tidak</option>
+		    					<option value="true" data-th-selected="${kasusbaru.fitur14}">Ya</option>
+		    				</select>
+		  				</div>
+		  				<div class="form-group">
+		    				<label>15.Apakah anak merasakan demam tinggi</label>
+		    				<select class="form-control" name="fitur15">
+		    					<option value="false" >Tidak</option>
+		    					<option value="true" data-th-selected="${kasusbaru.fitur15}">Ya</option>
+		    				</select>
+		  				</div>
+		  				<div class="form-group">
+		    				<label>16.Apakah tekanan darah anak rendah</label>
+		    				<select class="form-control" name="fitur16">
+		    					<option value="false" >Tidak</option>
+		    					<option value="true" data-th-selected="${kasusbaru.fitur16}">Ya</option>
+		    				</select>
+		  				</div>
+		  				<div class="form-group">
+		    				<label>17.Apakah berat badan anak menurun</label>
+		    				<select class="form-control" name="fitur17">
+		    					<option value="false" >Tidak</option>
+		    					<option value="true" data-th-selected="${kasusbaru.fitur17}">Ya</option>
+		    				</select>
+		  				</div>
+		  				<div class="form-group">
+		    				<label>18.Apakah anak buang air besar 6 kali dalam waktu 24 jam</label>
+		    				<select class="form-control" name="fitur18">
+		    					<option value="false" >Tidak</option>
+		    					<option value="true" data-th-selected="${kasusbaru.fitur18}">Ya</option>
+		    				</select>
+		  				</div>
+		  				<div class="form-group">
+		    				<label>19.Apakah anak mengalami dehidrasi</label>
+		    				<select class="form-control" name="fitur19">
+		    					<option value="false" >Tidak</option>
+		    					<option value="true" data-th-selected="${kasusbaru.fitur19}">Ya</option>
+		    				</select>
+		  				</div>
+		  				<div class="form-group">
+		    				<label>20.Apakah anak susah buang air besar</label>
+		    				<select class="form-control" name="fitur20">
+		    					<option value="false" >Tidak</option>
+		    					<option value="true" data-th-selected="${kasusbaru.fitur20}">Ya</option>
+		    				</select>
+		  				</div>
+		  				<div class="form-group">
+		    				<label>21.Apakah anak mengeluarkan tinja cair</label>
+		    				<select class="form-control" name="fitur21">
+		    					<option value="false" >Tidak</option>
+		    					<option value="true" data-th-selected="${kasusbaru.fitur21}">Ya</option>
+		    				</select>
+		  				</div>
+		  				<div class="form-group">
+		    				<label>22.Apakah anak mengalami mencret-mencret</label>
+		    				<select class="form-control" name="fitur22">
+		    					<option value="false" >Tidak</option>
+		    					<option value="true" data-th-selected="${kasusbaru.fitur22}">Ya</option>
+		    				</select>
+		  				</div>
+		  				<div class="form-group">
+		    				<label>23.Apakah anak ketika buang air besar berdarah</label>
+		    				<select class="form-control" name="fitur23">
+		    					<option value="false" >Tidak</option>
+		    					<option value="true" data-th-selected="${kasusbaru.fitur23}">Ya</option>
+		    				</select>
+		  				</div>
+		  				<div class="form-group">
+		    				<label>24.Apakah anak merasakan sakit saat buang air besar</label>
+		    				<select class="form-control" name="fitur24">
+		    					<option value="false" >Tidak</option>
+		    					<option value="true" data-th-selected="${kasusbaru.fitur24}">Ya</option>
+		    				</select>
+		  				</div>
+		  				<div class="form-group">
+		    				<label>25.Apakah anak buang air besar bercampur lendir</label>
+		    				<select class="form-control" name="fitur25">
+		    					<option value="false" >Tidak</option>
+		    					<option value="true" data-th-selected="${kasusbaru.fitur25}">Ya</option>
+		    				</select>
+		  				</div>
+		  				<div class="form-group">
+		    				<label>26.Apakah tinja anak sangat encer tanpa lendir</label>
+		    				<select class="form-control" name="fitur26">
+		    					<option value="false" >Tidak</option>
+		    					<option value="true" data-th-selected="${kasusbaru.fitur26}">Ya</option>
+		    				</select>
+		  				</div>
+		  				<div class="form-group">
+		    				<label>27.Apakah anak saat buang air besar tinja mengeras dan juga terlihat mengering</label>
+		    				<select class="form-control" name="fitur27">
+		    					<option value="false" >Tidak</option>
+		    					<option value="true" data-th-selected="${kasusbaru.fitur27}">Ya</option>
+		    				</select>
+		  				</div>
+		  				<div class="form-group">
+		    				<label>28.Apakah tinja anak berwarna kemerahan</label>
+		    				<select class="form-control" name="fitur28">
+		    					<option value="false" >Tidak</option>
+		    					<option value="true" data-th-selected="${kasusbaru.fitur28}">Ya</option>
+		    				</select>
+		  				</div>
+		  				<div class="form-group">
+		    				<label>29.Apakah tinja anak berwarna kehijau-hijauan</label>
+		    				<select class="form-control" name="fitur29">
+		    					<option value="false" >Tidak</option>
+		    					<option value="true" data-th-selected="${kasusbaru.fitur29}">Ya</option>
+		    				</select>
+		  				</div>
+		  				<div class="form-group">
+		    				<label>30.Apakah tubuh anak terasa lemas</label>
+		    				<select class="form-control" name="fitur30">
+		    					<option value="false" >Tidak</option>
+		    					<option value="true" data-th-selected="${kasusbaru.fitur30}">Ya</option>
+		    				</select>
+		  				</div>
+		  				<div class="form-group">
+		    				<label>31.Apakah anak cengeng </label>
+		    				<select class="form-control" name="fitur31">
+		    					<option value="false" >Tidak</option>
+		    					<option value="true" data-th-selected="${kasusbaru.fitur31}">Ya</option>
+		    				</select>
+		  				</div>
+		  				<div class="form-group">
+		    				<label>32.Apakah anak gelisah dan suhu badan meningkat</label>
+		    				<select class="form-control" name="fitur32">
+		    					<option value="false" >Tidak</option>
+		    					<option value="true" data-th-selected="${kasusbaru.fitur32}">Ya</option>
+		    				</select>
+		  				</div>
+		  				<div class="form-group">
+		    				<label>33.Apakah anak mengalami sakit perut atau keram perut</label>
+		    				<select class="form-control" name="fitur33">
+		    					<option value="false" >Tidak</option>
+		    					<option value="true" data-th-selected="${kasusbaru.fitur33}">Ya</option>
+		    				</select>
+		  				</div>
+		  				<div class="form-group">
+		    				<label>34.Apakah anak tiba-tiba menjerit menangis tanpa ada trauma</label>
+		    				<select class="form-control" name="fitur34">
+		    					<option value="false">Tidak</option>
+		    					<option value="true" data-th-selected="${kasusbaru.fitur34}">Ya</option>
+		    				</select>
+		  				</div>
+		  				<div class="form-group">
+		    				<label>35.Apakah anak merasakan perutnya sakit tetapi lokasinya belum tepat</label>
+		    				<select class="form-control" name="fitur35">
+		    					<option value="false" >Tidak</option>
+		    					<option value="true" data-th-selected="${kasusbaru.fitur35}">Ya</option>
+		    				</select>
+		  				</div>
+		  				<input type="hidden" name="id" data-th-value="${kasusbaru.id}"/>
+					  </div>
+					  <div class="tab-pane fade show active" id="solutions" role="tabpanel" aria-labelledby="solutions-tab">
+						  <div class="table-responsive">
+	                        <table id="table-solution" class="table table-striped" style="width: 100%">
+	                        	<thead class="thead-inverse">
+	                        	<tr>
+	                        		<th style="width: 25px;">#</th>
+	                        		<th>Gejala</th>
+	                        		<th>Jenis</th>
+	                        		<th>Solusi</th>
+	                        	</tr>
+	                        	</thead>
+	                            <tbody>
+	                                <tr data-th-each="solusi : ${kasusbaru.solutions}">
+                                		<td>
+                                			<input type="hidden" name="selected" data-th-value="${solusi.selected}"/>
+                                			<input type="hidden" name="solusionID" data-th-value="${solusi.id}"/>
+                                			<input onclick="javascript:changeState(this)" type="checkbox" data-th-checked="${solusi.selected}"/>
+                                		</td>
+                                		<td data-th-text="${solusi.gejala}"/>
+                                		<td data-th-text="${solusi.jenis}"/>
+                                		<td data-th-text="${solusi.description}"/>
+	                                </tr>
+	                            </tbody>
+	                        	</table>
+	                        	<button type="submit" class="btn btn-primary">Simpan kedalam Basis Kasus</button>
+	                  		</div>
+					  </div>
+					</div>
+					</form>
+	        	</div>
+            </div>
+	        <hr/>
+	        <footer data-th-replace="fragments/backoffice-footer :: footer" class="container-fluid"></footer>
+		</div>
+	</div>
+	<div data-th-replace="fragments/backoffice-about-dialog :: about-dialog"></div>
+	</body>
+	<script type="text/javascript">
+		
+		function changeState(obj) {
+			
+			var jObj = $(obj);
+			var parent = jObj.parent();
+			var hidden = parent.find("input[name='selected']");
+			hidden.val(jObj.prop('checked'));
+		}
+	</script>
+</html>

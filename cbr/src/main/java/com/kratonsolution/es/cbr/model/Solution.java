@@ -53,4 +53,10 @@ public class Solution {
         this.jenis = jenis;
         this.description = description;
     }
+    
+    @Override
+    public String toString() {
+
+        return this.gejala+", "+this.jenis+", "+this.description;
+    }
 }

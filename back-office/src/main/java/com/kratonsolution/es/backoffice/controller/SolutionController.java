@@ -88,8 +88,8 @@ public class SolutionController {
         return "/backoffice/solution/edit";
     }
     
-    @PostMapping("/backoffice/solution/edit/store/{id}")
-    public String edit(@PathVariable String id, @RequestParam("description")Optional<String> note) {
+    @PostMapping("/backoffice/solution/edit/store")
+    public String edit(@RequestParam("id") String id, @RequestParam("description")Optional<String> note) {
 
         service.update(id, note);
         return "redirect:/backoffice/solutions?page=0&size=50";

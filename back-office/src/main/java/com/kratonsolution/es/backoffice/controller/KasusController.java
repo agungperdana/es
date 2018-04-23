@@ -2,9 +2,6 @@ package com.kratonsolution.es.backoffice.controller;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.kratonsolution.es.cbr.application.FiturService;
+import com.google.common.base.Preconditions;
 import com.kratonsolution.es.cbr.application.KasusService;
-import com.kratonsolution.es.cbr.model.Fitur;
+import com.kratonsolution.es.cbr.application.SolutionService;
 import com.kratonsolution.es.cbr.model.Kasus;
-import com.kratonsolution.es.cbr.model.KasusFitur;
+import com.kratonsolution.es.cbr.model.KasusSolusi;
+import com.kratonsolution.es.cbr.model.Solution;
 import com.kratonsolution.es.web.util.Page;
 
 /**
@@ -33,23 +31,7 @@ public class KasusController {
     private KasusService service;
     
     @Autowired
-    private FiturService fiturService;
-    
-    private Comparator<KasusFitur> comparator = new Comparator<KasusFitur>() {
-        
-        @Override
-        public int compare(KasusFitur o1, KasusFitur o2) {
-            
-            Optional<Fitur> f1 = fiturService.getByName(o1.getFitur());
-            Optional<Fitur> f2 = fiturService.getByName(o2.getFitur());
-            
-            if(f1.isPresent() && f2.isPresent()) {
-                return f1.get().getSequence() - f2.get().getSequence();
-            }
-            
-            return 0;
-        };
-    };
+    private SolutionService solutionService;
     
     @RequestMapping("/backoffice/kasuses")
     public String kasuses(Model model,  
@@ -79,7 +61,7 @@ public class KasusController {
         }
         else {
             
-            kasuses.addAll(service.getAllKasuses(page, size));
+            kasuses.addAll(service.getAllKasuses());
             count = service.count();
         }
         
@@ -93,42 +75,71 @@ public class KasusController {
     }
     
     @RequestMapping("/backoffice/kasus/add/pre")
-    public String preadd(Model model) {
+    public String preadd(Model model) {        
         
-        model.addAttribute("fitures", fiturService.getAllFitures());
+        model.addAttribute("solutions", solutionService.getAllSolutiones());
         
         return "/backoffice/kasus/add";
     }
     
     @RequestMapping("/backoffice/kasus/add/store")
-    public String add(@RequestParam("fitur")String[] fitur, 
-            @RequestParam("fiturevalue")boolean[] fiturevalue,
-            @RequestParam("gejala")String[] gejala,
-            @RequestParam("jenis")String[] jenis,
-            @RequestParam("solusi")String[] solusi,
-            @RequestParam("note")String note) {
+    public String add(@RequestParam("fitur1")boolean fitur1, 
+            @RequestParam("fitur2")boolean fitur2, 
+            @RequestParam("fitur3")boolean fitur3, 
+            @RequestParam("fitur4")boolean fitur4, 
+            @RequestParam("fitur5")boolean fitur5, 
+            @RequestParam("fitur6")boolean fitur6, 
+            @RequestParam("fitur7")boolean fitur7, 
+            @RequestParam("fitur8")boolean fitur8, 
+            @RequestParam("fitur9")boolean fitur9, 
+            @RequestParam("fitur10")boolean fitur10, 
+            @RequestParam("fitur11")boolean fitur11, 
+            @RequestParam("fitur12")boolean fitur12, 
+            @RequestParam("fitur13")boolean fitur13, 
+            @RequestParam("fitur14")boolean fitur14, 
+            @RequestParam("fitur15")boolean fitur15, 
+            @RequestParam("fitur16")boolean fitur16, 
+            @RequestParam("fitur17")boolean fitur17,
+            @RequestParam("fitur18")boolean fitur18,
+            @RequestParam("fitur19")boolean fitur19,
+            @RequestParam("fitur20")boolean fitur20,
+            @RequestParam("fitur21")boolean fitur21,
+            @RequestParam("fitur22")boolean fitur22,
+            @RequestParam("fitur23")boolean fitur23,
+            @RequestParam("fitur24")boolean fitur24,
+            @RequestParam("fitur25")boolean fitur25,
+            @RequestParam("fitur26")boolean fitur26,
+            @RequestParam("fitur27")boolean fitur27,
+            @RequestParam("fitur28")boolean fitur28,
+            @RequestParam("fitur29")boolean fitur29,
+            @RequestParam("fitur30")boolean fitur30,
+            @RequestParam("fitur31")boolean fitur31,
+            @RequestParam("fitur32")boolean fitur32,
+            @RequestParam("fitur33")boolean fitur33,
+            @RequestParam("fitur34")boolean fitur34,
+            @RequestParam("fitur35")boolean fitur35,
+            @RequestParam("selected")boolean[] selecteds,
+            @RequestParam("solusionID")String[] solusionIDs) {
         
-        Kasus kasus = new Kasus("init", note);
+        Kasus kasus = new Kasus(fitur1, fitur2, fitur3, fitur4, fitur5, fitur6, fitur7, fitur8, fitur9, fitur10
+                , fitur11, fitur12, fitur13, fitur14, fitur15, fitur16, fitur17, fitur18, fitur19, fitur20
+                , fitur21, fitur22, fitur23, fitur24, fitur25, fitur26, fitur27, fitur28, fitur29, fitur30
+                , fitur31, fitur32, fitur33, fitur34, fitur35);
+
+        Preconditions.checkState(selecteds.length == solusionIDs.length, "Solution not match");
         
-        for(int idx=0; idx<fitur.length; idx++) {
-            kasus.addFitur(fitur[idx], fiturevalue[idx]);
+        for(int idx=0;idx<selecteds.length;idx++) {
+            
+            Optional<Solution> opt = solutionService.getById(solusionIDs[idx]);
+            Preconditions.checkState(opt.isPresent(), "Solution with id [%s] does not exist", solusionIDs[idx]);
+            
+            KasusSolusi solusi = new KasusSolusi(kasus, solusionIDs[idx], opt.get().getGejala(), 
+                    opt.get().getJenis(), opt.get().getDescription(), selecteds[idx]);
+            
+            kasus.getSolutions().add(solusi);
         }
         
-//        for(int idx=0; idx<gejala.length; idx++) {
-//            kasus.addSolution(gejala[idx], jenis[idx], solusi[idx]);
-//        }
-        
-        List<KasusFitur> sorted = new ArrayList<>(kasus.getFitures());
-        
-        Collections.sort(sorted, comparator);
-        
-        StringBuilder builder = new StringBuilder();
-        
-        sorted.stream().forEach(fit -> builder.append(fit.isValue()?"1":"0"));
-        kasus.setCode(builder.toString());
-        
         service.create(kasus);
-        
         return "redirect:/backoffice/kasuses?page=0&size=50";
     }
     
@@ -137,32 +148,57 @@ public class KasusController {
         
         Optional<Kasus> opt = service.getById(id);
         if(opt.isPresent()) {
-            
-            List<KasusFitur> fiturs = opt.get().getFiturAsList();
-            fiturs.sort(comparator);
-            
             model.addAttribute("kasus", opt.get());
-            model.addAttribute("fiturs", fiturs);
         }
         
         return "/backoffice/kasus/edit";
     }
     
     @PostMapping("/backoffice/kasus/edit/store")
-    public String edit(@RequestParam("code")String code,
-                       @RequestParam("solusiID")String[] solusiID,
-                       @RequestParam("gejala")String[] gejala,
-                       @RequestParam("jenis")String[] jenis,
-                       @RequestParam("solusi")String[] solusi,
-                       @RequestParam("note")String note) {
+    public String edit(
+            @RequestParam("id")String id,
+            @RequestParam("fitur1")boolean fitur1, 
+            @RequestParam("fitur2")boolean fitur2, 
+            @RequestParam("fitur3")boolean fitur3, 
+            @RequestParam("fitur4")boolean fitur4, 
+            @RequestParam("fitur5")boolean fitur5, 
+            @RequestParam("fitur6")boolean fitur6, 
+            @RequestParam("fitur7")boolean fitur7, 
+            @RequestParam("fitur8")boolean fitur8, 
+            @RequestParam("fitur9")boolean fitur9, 
+            @RequestParam("fitur10")boolean fitur10, 
+            @RequestParam("fitur11")boolean fitur11, 
+            @RequestParam("fitur12")boolean fitur12, 
+            @RequestParam("fitur13")boolean fitur13, 
+            @RequestParam("fitur14")boolean fitur14, 
+            @RequestParam("fitur15")boolean fitur15, 
+            @RequestParam("fitur16")boolean fitur16, 
+            @RequestParam("fitur17")boolean fitur17,
+            @RequestParam("fitur18")boolean fitur18,
+            @RequestParam("fitur19")boolean fitur19,
+            @RequestParam("fitur20")boolean fitur20,
+            @RequestParam("fitur21")boolean fitur21,
+            @RequestParam("fitur22")boolean fitur22,
+            @RequestParam("fitur23")boolean fitur23,
+            @RequestParam("fitur24")boolean fitur24,
+            @RequestParam("fitur25")boolean fitur25,
+            @RequestParam("fitur26")boolean fitur26,
+            @RequestParam("fitur27")boolean fitur27,
+            @RequestParam("fitur28")boolean fitur28,
+            @RequestParam("fitur29")boolean fitur29,
+            @RequestParam("fitur30")boolean fitur30,
+            @RequestParam("fitur31")boolean fitur31,
+            @RequestParam("fitur32")boolean fitur32,
+            @RequestParam("fitur33")boolean fitur33,
+            @RequestParam("fitur34")boolean fitur34,
+            @RequestParam("fitur35")boolean fitur35,
+            @RequestParam("selected")boolean[] selecteds,
+            @RequestParam("solusionID")String[] solusionIDs) {
         
-        Kasus kasus = new Kasus(code, note);
-        
-//        for(int idx=0; idx<gejala.length; idx++) {
-//            kasus.addSolution(solusiID[idx], gejala[idx], jenis[idx], solusi[idx]);
-//        }
-        
-        service.update(kasus);
+        service.update(id, fitur1, fitur2, fitur3, fitur4, fitur5, fitur6, fitur7, fitur8, fitur9, fitur10
+                , fitur11, fitur12, fitur13, fitur14, fitur15, fitur16, fitur17, fitur18, fitur19, fitur20
+                , fitur21, fitur22, fitur23, fitur24, fitur25, fitur26, fitur27, fitur28, fitur29, fitur30
+                , fitur31, fitur32, fitur33, fitur34, fitur35, selecteds, solusionIDs);
         
         return "redirect:/backoffice/kasuses?page=0&size=50";
     }

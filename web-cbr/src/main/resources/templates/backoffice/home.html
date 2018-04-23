@@ -1,55 +1,83 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" class="no-js" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
-  	<link rel="stylesheet" type="text/css" th:href="@{/css/photon.css}"/>
-  	<script data-th-inline="javascript">
-		function logout() {
-  			window.location=/*[[@{/logout}]]*/
-  		}
-  	</script>
-</head>
-<body>
-<div class="window">
-  <header class="toolbar toolbar-header">
-    <h1 class="title">Backoffice Dashboard .v-0.1.1.Final (HOME)</h1>
-    <div class="toolbar-actions">
-      <div class="btn-group">
-        <button class="btn btn btn-default">
-          <span class="icon icon-home"></span>
-        </button>
-        <button class="btn btn btn-default" onclick="javascript:logout()">
-            <span class="icon icon-logout"></span>
-          </button>
-      </div>
-    </div>
-  </header>
-  <div class="window-content">
-    <div class="pane-group">
-      <div class="pane-sm sidebar">
-          <nav class="nav-group">
-              <h5 class="nav-group-title">Security</h5>
-              <a class="nav-group-item" th:href="@{/backoffice/users(page=0,size=50)}">
-                  <span class="icon icon-user"></span>
-                  User
-              </a>
-              <h5 class="nav-group-title">CBR Setting</h5>
-              <a class="nav-group-item" th:href="@{/backoffice/fitures(page=0,size=50)}">
-                  <span class="icon icon-shareable"></span>
-                  Fitur
-              </a>
-              <a class="nav-group-item" th:href="@{/backoffice/solutions(page=0,size=50)}">
-                  <span class="icon icon-feather"></span>
-                  Solusi
-              </a>
-              <a class="nav-group-item" th:href="@{/backoffice/kasuses(page=0,size=50)}">
-                  <span class="icon icon-google-circles"></span>
-                  Kasus
-              </a>
-          </nav>
-      </div>
-      <div class="pane"></div>
-    </div>
-  </div>
-</div>
-</body>
+  <head data-th-replace="fragments/backoffice-head :: head"></head>
+  <body>
+    <nav data-th-replace="fragments/backoffice-menu :: menu"></nav>
+
+	<div class="container-fluid" id="main">
+	    <div class="row row-offcanvas row-offcanvas-left">
+	        <div data-th-replace="fragments/backoffice-navigation :: navbar"></div>
+	        <!--/col-->
+	
+	        <div class="col-md-9 col-lg-10 main">
+	
+	            <h1 class="display-4 d-none d-sm-block">
+	            Dashboard
+	            </h1>
+	            <p class="lead d-none d-sm-block">Diagnosa Gangguan Pencernaan Pada Anak</p>
+	
+	            <div class="alert alert-warning fade collapse" role="alert" id="myAlert">
+	                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	                    <span aria-hidden="true">×</span>
+	                    <span class="sr-only">Close</span>
+	                </button>
+	                <strong>Holy guacamole!</strong> It's free.. this is an example theme.
+	            </div>
+	            <div class="row mb-3">
+	                <div class="col-xl-3 col-sm-6">
+	                    <div class="card bg-success text-white h-100">
+	                        <div class="card-body bg-success">
+	                            <div class="rotate">
+	                                <i class="fa fa-user fa-3x"></i>
+	                            </div>
+	                            <h6 class="text-uppercase">Users</h6>
+	                            <h1 class="display-4">134</h1>
+	                        </div>
+	                    </div>
+	                </div>
+	                <div class="col-xl-3 col-sm-6">
+	                    <div class="card text-white bg-danger h-100">
+	                        <div class="card-body bg-danger">
+	                            <div class="rotate">
+	                                <i class="fa fa-database fa-3x"></i>
+	                            </div>
+	                            <h6 class="text-uppercase">Bank kasus</h6>
+	                            <h1 class="display-4">80</h1>
+	                        </div>
+	                    </div>
+	                </div>
+	                <div class="col-xl-3 col-sm-6">
+	                    <div class="card text-white bg-info h-100">
+	                        <div class="card-body bg-info">
+	                            <div class="rotate">
+	                                <i class="fa fa-exclamation-circle fa-3x"></i>
+	                            </div>
+	                            <h6 class="text-uppercase">Jenis Gejala</h6>
+	                            <h1 class="display-4">125</h1>
+	                        </div>
+	                    </div>
+	                </div>
+	                <div class="col-xl-3 col-sm-6">
+	                    <div class="card text-white bg-warning h-100">
+	                        <div class="card-body bg-warning">
+	                            <div class="rotate">
+	                                <i class="fa fa-wrench fa-3x"></i>
+	                            </div>
+	                            <h6 class="text-uppercase">Shares</h6>
+	                            <h1 class="display-4">36</h1>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	            <!--/row-->
+	
+	            <hr/>
+	            <a id="more"></a>
+	            <hr/>
+				<!--/.container-->
+				<footer data-th-replace="fragments/backoffice-footer :: footer" class="container-fluid"></footer>
+			</div>
+		</div>
+	</div>
+  </body>
 </html>

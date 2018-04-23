@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en" class="no-js" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head data-th-replace="fragments/backoffice-head :: head"></head>
+  <body>
+    <nav data-th-replace="fragments/backoffice-menu :: menu(home='active', web='')"></nav>
+
+	<div class="container-fluid" id="main">
+	    <div class="row row-offcanvas row-offcanvas-left">
+			<div data-th-replace="fragments/backoffice-navigation :: navbar"></div>
+		
+        	<div class="col-md-9 col-lg-10 main">
+            	<h1 class="display-4 d-none d-sm-block">Manajemen Data Basis Kasus Baru</h1>
+	            <div class="col-lg-12 col-md-8">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead class="thead-inverse">
+                                <tr>
+                                    <th style="width: 200px">Bitnari</th>
+                                    <th style="width:150px;">#</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-th-each="kasusbaru : ${kasusesbaru}">
+                                	<td data-th-text="${kasusbaru.binaries()}"/>
+	      							<td>
+	      								<a data-th-href="@{/backoffice/kasusbaru/edit/pre/}+${kasusbaru.id}">Ubah</a> |
+	      								<a data-th-href="@{/backoffice/kasusbaru/delete/}+${kasusbaru.id}">Hapus</a>
+	      							</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+	        	</div>
+            </div>
+	        <hr/>
+	        <footer data-th-replace="fragments/backoffice-footer :: footer" class="container-fluid"></footer>
+		</div>
+	</div>
+	<div data-th-replace="fragments/backoffice-about-dialog :: about-dialog"></div>
+	</body>
+</html>

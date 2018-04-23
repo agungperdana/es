@@ -1,6 +1,8 @@
-package com.kratonsolution.es.cbr.model;
+package com.kratonsolution.es.cbr.application;
 
 import java.util.Vector;
+
+import com.kratonsolution.es.cbr.model.Kasus;
 
 import lombok.Getter;
 import lombok.Setter;
