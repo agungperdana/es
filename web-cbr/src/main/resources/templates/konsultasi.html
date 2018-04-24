@@ -7,7 +7,7 @@
         <nav data-th-replace="fragments/navbar :: navbar(a='', b='active', c='', d='')"></nav>
 
          <!-- Sections -->
-        <form>
+        <form name="wizForm" data-th-action="@{/hasilkonsultasi.next/cosine}" method="post">
         <section id="features" class="features sections">
             <div class="container">
 		    	<div id="smartwizard" style="height: 600px;">
@@ -266,7 +266,9 @@
 	             // Toolbar extra buttons
 	             var btnFinish = $('<button></button>').text('Selesai')
 	                                              .addClass('btn btn-info')
-	                                              .on('click', function(){ alert('Finish Clicked'); });
+	                                              .on('click', function(){ 
+	                                            	  document.wizForm.submit();
+	                                              });
 	             var btnCancel = $('<button></button>').text('Batalkan')
 	                                              .addClass('btn btn-danger')
 	                                              .on('click', function(){ $('#smartwizard').smartWizard("reset"); });

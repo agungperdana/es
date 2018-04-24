@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en" class="no-js" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head data-th-replace="fragments/head :: noscript(title='Halaman Konsultasi')"></head>
+    <body id="start">
+		<div class='preloader'><div class='loaded'>&nbsp;</div></div>
+        <section id="social" class="social" data-th-replace="fragments/headsection :: head-section"></section>
+        <nav data-th-replace="fragments/navbar :: navbar(a='', b='active', c='', d='')"></nav>
+         <!-- Sections -->
+        <section id="features" class="features sections">
+            <div class="container">
+                <div class="row">
+                	<h2>Hasil Konsultasi</h2>
+                    <table class="table">
+                    <thead>
+                    <tr>
+                    	<th>% Kemiripan</th>
+                    	<th>&nbsp;</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr data-th-each="data:${hasil}">
+                    <td style="color:red;font-size:20px; font-weight: bolder; vertical-align: middle;" data-th-text="${data.percent()}"/>
+                    <td>
+                    	<table class="table">
+                    	<thead>
+                    	<tr>
+                    		<th>Gejala</th>
+                    		<th>Jenis</th>
+                    		<th style="width: 65%">Solusi</th>
+                    	</tr>
+                    	</thead>
+                    	<tbody>
+                    	<tr data-th-each="solusi:${data.solutions}">
+                    		<td data-th-text="${solusi.gejala}"/>
+                    		<td data-th-text="${solusi.jenis}"/>
+                    		<td data-th-text="${solusi.description}"/>
+                    	</tr>
+                    	</tbody>
+                    	</table>
+                    </td>
+                    </tr>
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <footer id="footer" class="footer" data-th-replace="fragments/footer :: footer"></footer>
+		<div class="scrollup"><a ><i class="fa fa-chevron-up"></i></a></div>
+
+		<script data-th-src="@{/js/modernizr-2.8.3-respond-1.4.2.min.js}"></script>
+        <script data-th-src="@{/js/jquery.min.js}"></script>
+        <script data-th-src="@{/js/bootstrap.min.js}"></script>
+        <script data-th-src="@{/js/plugins.js}"></script>
+        <script data-th-src="@{/js/modernizr.js}"></script>
+        <script data-th-src="@{/js/main.js}"></script>
+        <script data-th-src="@{/js/jquery-ui.min.js}"></script>
+  		<script data-th-src="@{/js/jquery.steps.min.js}"></script>
+    	<script data-th-src="@{/js/jquery.smartWizard.min.js}"></script>
+    </body>
+</html>
