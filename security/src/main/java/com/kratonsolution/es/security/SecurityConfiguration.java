@@ -33,9 +33,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
             .antMatchers("/backoffice/**").authenticated()
             .anyRequest().permitAll();
 
-        http.formLogin().loginPage("/login")
-            .failureForwardUrl("/login")
-            .successForwardUrl("/backoffice/home");
         http.logout();
         http.csrf().disable();
         http.headers().frameOptions().sameOrigin();

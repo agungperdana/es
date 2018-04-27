@@ -40,6 +40,7 @@ subprojects {
     repositories {
         jcenter()
         mavenCentral()
+        maven { url "http://mavensync.zkoss.org/maven2" }
     }
     
     dependencies {
@@ -51,7 +52,12 @@ subprojects {
         compile 'com.google.guava:guava:23.5-jre'
         compile 'org.springframework.boot:spring-boot-starter-data-jpa'
         compile 'mysql:mysql-connector-java:5.1.44'
-                
+        
+        compile 'org.zkoss.zk:zkplus:8.5.0'
+        compile 'org.zkoss.zk:zhtml:8.5.0'
+        compile 'org.zkoss.zk:zkbind:8.5.0'
+        compile 'org.zkoss.zk:zul:8.5.0'
+        
         compile "org.mapstruct:mapstruct-jdk8:${mapstructVersion}"
         apt "org.mapstruct:mapstruct-processor:${mapstructVersion}"
         

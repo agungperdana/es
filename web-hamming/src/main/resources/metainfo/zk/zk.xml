@@ -1,0 +1,22 @@
+<zk>
+    <config-name>belian-config</config-name>
+	<richlet>
+	    <richlet-name>Login</richlet-name>
+	    <richlet-class>com.kratonsolution.es.hamming.zk.Login</richlet-class>
+	</richlet>
+	<richlet-mapping>
+	    <richlet-name>Login</richlet-name>
+	    <url-pattern>/login</url-pattern>
+	</richlet-mapping>
+	<richlet>
+	    <richlet-name>Dashboard</richlet-name>
+	    <richlet-class>com.kratonsolution.es.hamming.zk.Dashboard</richlet-class>
+	</richlet>
+	<richlet-mapping>
+	    <richlet-name>Dashboard</richlet-name>
+	    <url-pattern>/dashboard</url-pattern>
+	</richlet-mapping>
+	<session-config>
+ 		<timer-keep-alive>true</timer-keep-alive>
+	</session-config>
+</zk>
