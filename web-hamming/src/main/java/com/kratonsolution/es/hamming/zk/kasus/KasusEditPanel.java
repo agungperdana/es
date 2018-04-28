@@ -1,5 +1,7 @@
 package com.kratonsolution.es.hamming.zk.kasus;
 
+import java.util.Optional;
+
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zul.Checkbox;
@@ -18,6 +20,7 @@ import org.zkoss.zul.Vlayout;
 import com.kratonsolution.es.Springs;
 import com.kratonsolution.es.hamming.application.KasusService;
 import com.kratonsolution.es.hamming.model.Kasus;
+import com.kratonsolution.es.hamming.model.KasusSolusi;
 
 import lombok.NonNull;
 
@@ -93,8 +96,29 @@ public class KasusEditPanel extends Vlayout {
             
             try {
                 
-                
-                Springs.get(KasusService.class).create(kasus);
+                Optional<Kasus> on = Springs.get(KasusService.class).getById(kasus.getId());
+                if(on.isPresent()) {
+
+                    on.get().setFitur1(fitur1.getSelectedItem().getValue());
+                    on.get().setFitur2(fitur2.getSelectedItem().getValue());
+                    on.get().setFitur3(fitur3.getSelectedItem().getValue());
+                    on.get().setFitur4(fitur4.getSelectedItem().getValue());
+                    on.get().setFitur5(fitur5.getSelectedItem().getValue());
+                    on.get().setFitur6(fitur6.getSelectedItem().getValue());
+                    on.get().setFitur7(fitur7.getSelectedItem().getValue());
+                    
+                    layout2.getChildren().forEach(com -> {
+                        
+                        Checkbox box = (Checkbox)com;
+                        Optional<KasusSolusi> opt = on.get().getSolutions().stream().filter(p -> 
+                                                        p.getSolusiID().equals(box.getValue())).findFirst();
+                        if(opt.isPresent()) {
+                            opt.get().setSelected(box.isChecked());
+                        }
+                    });
+                    
+                    Springs.get(KasusService.class).update(on.get());
+                }
                 
                 parent.removeChild(KasusEditPanel.this);
                 parent.appendChild(new KasusGrid(parent));
