@@ -14,6 +14,7 @@ import org.zkoss.zul.Window;
 
 import com.kratonsolution.es.hamming.zk.fitur.FiturWindow;
 import com.kratonsolution.es.hamming.zk.kasus.KasusWindow;
+import com.kratonsolution.es.hamming.zk.kasusbaru.KasusBaruWindow;
 import com.kratonsolution.es.hamming.zk.solusi.SolusiWindow;
 import com.kratonsolution.es.hamming.zk.user.UserWindow;
 
@@ -77,6 +78,12 @@ public class Dashboard extends GenericRichlet {
             });
             
             kasusbaru.setIconSclass("z-icon-bell");
+            kasusbaru.addEventListener(Events.ON_CLICK, e -> {
+
+                Window window = new KasusBaruWindow();
+                window.setPage(Layout.this.getPage());
+                window.doOverlapped();
+            });
             
             fitur.setIconSclass("z-icon-bullhorn");
             fitur.addEventListener(Events.ON_CLICK, e -> {

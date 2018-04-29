@@ -1,4 +1,4 @@
-package com.kratonsolution.es.hamming.zk.kasus;
+package com.kratonsolution.es.hamming.zk.kasusbaru;
 
 import java.util.Optional;
 
@@ -28,7 +28,7 @@ import lombok.NonNull;
  * @author Agung Dodi Perdana
  * @email agung.dodi.perdana@gmail.com 
  */
-public class KasusEditPanel extends Vlayout {
+public class KasusBaruEditPanel extends Vlayout {
     
     private Label error = new Label();
     
@@ -48,7 +48,7 @@ public class KasusEditPanel extends Vlayout {
     
     private Toolbarbutton back = new Toolbarbutton("Batal");
     
-    private Toolbarbutton submit = new Toolbarbutton("Simpan");
+    private Toolbarbutton submit = new Toolbarbutton("Simpan ke Basis Kasus");
     
     private Vlayout layout1 = new Vlayout();
     
@@ -58,7 +58,7 @@ public class KasusEditPanel extends Vlayout {
     
     private Toolbar toolbar = new Toolbar();
     
-    public KasusEditPanel(@NonNull Component parent, @NonNull Kasus kasus) {
+    public KasusBaruEditPanel(@NonNull Component parent, @NonNull Kasus kasus) {
         
         setVflex("1");
         setHflex("1");
@@ -87,8 +87,8 @@ public class KasusEditPanel extends Vlayout {
         back.setIconSclass("z-icon-close");
         back.addEventListener(Events.ON_CLICK, e -> {
             
-            parent.removeChild(KasusEditPanel.this);
-            parent.appendChild(new KasusGrid(parent));
+            parent.removeChild(KasusBaruEditPanel.this);
+            parent.appendChild(new KasusBaruGrid(parent));
         });
         
         submit.setIconSclass("z-icon-save");
@@ -98,14 +98,6 @@ public class KasusEditPanel extends Vlayout {
                 
                 Optional<Kasus> on = Springs.get(KasusService.class).getById(kasus.getId());
                 if(on.isPresent()) {
-
-                    on.get().setFitur1(fitur1.getSelectedItem().getValue());
-                    on.get().setFitur2(fitur2.getSelectedItem().getValue());
-                    on.get().setFitur3(fitur3.getSelectedItem().getValue());
-                    on.get().setFitur4(fitur4.getSelectedItem().getValue());
-                    on.get().setFitur5(fitur5.getSelectedItem().getValue());
-                    on.get().setFitur6(fitur6.getSelectedItem().getValue());
-                    on.get().setFitur7(fitur7.getSelectedItem().getValue());
                     
                     layout2.getChildren().forEach(com -> {
                         
@@ -117,11 +109,11 @@ public class KasusEditPanel extends Vlayout {
                         }
                     });
                     
-                    Springs.get(KasusService.class).update(on.get());
+                    Springs.get(KasusService.class).acceptKasus(on.get());
                 }
                 
-                parent.removeChild(KasusEditPanel.this);
-                parent.appendChild(new KasusGrid(parent));
+                parent.removeChild(KasusBaruEditPanel.this);
+                parent.appendChild(new KasusBaruGrid(parent));
                 
             } catch (Exception e) {
                 
@@ -137,43 +129,50 @@ public class KasusEditPanel extends Vlayout {
         
         error.setStyle("color:red;");
         error.setHflex("1");
-        
+
+        fitur1.setReadonly(true);
         fitur1.setHflex("1");
         fitur1.appendChild(createItem(" < 120/80 mm hg", "100"));
         fitur1.appendChild(createItem(" 120-129/80-89 mm hg", "010"));
         fitur1.appendChild(createItem(" > 140/90 mm hg", "001"));
         setSelected(fitur1, kasus.getFitur1());
         
+        fitur2.setReadonly(true);
         fitur2.setHflex("1");
         fitur2.appendChild(createItem(" < 100 mg/dl", "100"));
         fitur2.appendChild(createItem(" 100-200 mg/dl", "010"));
         fitur2.appendChild(createItem(" > 200 mg/dl", "001"));
         setSelected(fitur2, kasus.getFitur2());
         
+        fitur3.setReadonly(true);
         fitur3.setHflex("1");
         fitur3.appendChild(createItem(" < 200 mg/dl", "100"));
         fitur3.appendChild(createItem(" 200-239 mg/dl", "010"));
         fitur3.appendChild(createItem(" > 240 mg/dl", "001"));
         setSelected(fitur3, kasus.getFitur3());
         
+        fitur4.setReadonly(true);
         fitur4.setHflex("1");
         fitur4.appendChild(createItem("Tidak Merokok", "100"));
         fitur4.appendChild(createItem("Jarang Merokok", "010"));
         fitur4.appendChild(createItem("Pecandu Merokok", "001"));
         setSelected(fitur4, kasus.getFitur4());
         
+        fitur5.setReadonly(true);
         fitur5.setHflex("1");
         fitur5.appendChild(createItem("Olah raga teratur", "100"));
         fitur5.appendChild(createItem("Jarang Olah raga", "010"));
         fitur5.appendChild(createItem("Tidak Olah raga", "001"));
         setSelected(fitur5, kasus.getFitur5());
         
+        fitur6.setReadonly(true);
         fitur6.setHflex("1");
         fitur6.appendChild(createItem("Ideal", "100"));
         fitur6.appendChild(createItem("Overweight", "010"));
         fitur6.appendChild(createItem("Obesitas", "001"));
         setSelected(fitur6, kasus.getFitur6());
         
+        fitur7.setReadonly(true);
         fitur7.setHflex("1");
         fitur7.appendChild(createItem("Tidak ada", "100"));
         fitur7.appendChild(createItem("Tidak yakin", "010"));

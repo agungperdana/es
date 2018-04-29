@@ -72,10 +72,13 @@ public class KasusService {
     
     public void create(@NonNull Kasus kasus) {
         
+        checkDuplication(kasus);
+        repo.save(kasus);
+    }
+
+    private void checkDuplication(Kasus kasus) {
         boolean duplicate = repo.findAll(false).stream().anyMatch(p -> p.binaries().equals(kasus.binaries()));
         Preconditions.checkState(!duplicate, "Kasus with binaries [%s] already exist", kasus.binaries());
-        
-        repo.save(kasus);
     }
     
     public void update(@NonNull Kasus kasus) {
@@ -96,6 +99,13 @@ public class KasusService {
         out.setIncubated(false);
         
         repo.save(out);
+    }
+    
+    public void acceptKasus(@NonNull Kasus kasus) {
+        
+        checkDuplication(kasus);
+        kasus.setIncubated(false);
+        repo.save(kasus);
     }
     
     public void update(@NonNull String id,

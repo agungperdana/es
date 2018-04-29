@@ -254,6 +254,49 @@
         </div>
         <!-- End Service -->
             
+        <!-- result -->
+        <div id="result">
+            <div class="section-seperator">
+                <div class="content-lg container">
+                    <div class="row">
+	                   	<h2>Hasil Konsultasi</h2>
+	                    <table class="table">
+	                    <thead>
+	                    <tr>
+	                    	<th>% Kemiripan</th>
+	                    	<th>&nbsp;</th>
+	                    </tr>
+	                    </thead>
+	                    <tbody>
+	                    <tr data-th-each="data:${results}">
+	                    <td style="color:red;font-size:20px; font-weight: bolder; vertical-align: middle;" data-th-text="${data.percent()}"/>
+	                    <td>
+	                    	<table class="table">
+	                    	<thead>
+	                    	<tr>
+	                    		<th>Gejala</th>
+	                    		<th>Jenis</th>
+	                    		<th style="width: 65%">Solusi</th>
+	                    	</tr>
+	                    	</thead>
+	                    	<tbody>
+	                    	<tr data-th-each="solusi:${data.solutions}">
+	                    		<td data-th-text="${solusi.gejala}"/>
+	                    		<td data-th-text="${solusi.jenis}"/>
+	                    		<td data-th-text="${solusi.description}"/>
+	                    	</tr>
+	                    	</tbody>
+	                    	</table>
+	                    </td>
+	                    </tr>
+	                    </tbody>
+	                    </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Service -->
+            
         <!-- Contact -->
         <div id="contact">
             <!-- Contact List -->
@@ -382,7 +425,10 @@
         <script src="js/components/wow.min.js" type="text/javascript"></script>
         <script src="js/components/swiper.min.js" type="text/javascript"></script>
         <script src="js/components/masonry.min.js" type="text/javascript"></script>
-
+		
+		<script type="text/javascript">
+			window.location.hash = "#result"
+		</script>
     </body>
     <!-- END BODY -->
 </html>
