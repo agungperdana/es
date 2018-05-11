@@ -39,8 +39,6 @@ public class SolusiGrid extends Vlayout {
         grid.appendChild(new Rows());
         grid.getColumns().appendChild(new Column("", null, "75px"));
         grid.getColumns().appendChild(new Column("", null, "75px"));
-        grid.getColumns().appendChild(new Column("Gejala",null,null));
-        grid.getColumns().appendChild(new Column("Jenis",null,null));
         grid.getColumns().appendChild(new Column("Solusi",null,null));
         
         SolutionService service = Springs.get(SolutionService.class);
@@ -65,8 +63,6 @@ public class SolusiGrid extends Vlayout {
 
             row.appendChild(ubah);
             row.appendChild(hapus);
-            row.appendChild(new Label(solution.getGejala()));
-            row.appendChild(new Label(solution.getJenis()));
             row.appendChild(new Label(solution.getDescription()));
             
             grid.getRows().appendChild(row);

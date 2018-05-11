@@ -21,10 +21,6 @@ public class SolusiEditPanel extends Vlayout {
     
     private Label error = new Label();
     
-    private Textbox gejala = new Textbox();
-    
-    private Textbox jenis = new Textbox();
-    
     private Textbox note = new Textbox();
     
     private Button submit = new Button("Simpan");
@@ -36,18 +32,10 @@ public class SolusiEditPanel extends Vlayout {
         
         error.setStyle("color:red;");
         
-        gejala.setValue(solution.getGejala());
-        gejala.setHflex("1");
-        
-        jenis.setValue(solution.getJenis());
-        jenis.setHflex("1");
-        
         note.setValue(solution.getDescription());
         note.setHflex("1");
         
         appendChild(error);
-        appendChild(gejala);
-        appendChild(jenis);
         appendChild(note);
         appendChild(submit);
         

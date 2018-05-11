@@ -63,7 +63,7 @@
                                 <h1 class="carousel-title">SELAMAT DATANG!</h1>
                                 <p class="color-white">Diagnosa resiko terkena STROKE</p>
                             </div>
-                            <a href="#" class="btn-theme btn-theme-sm btn-white-brd text-uppercase">Mulai Tes</a>
+                            <a href="#services" class="btn-theme btn-theme-sm btn-white-brd text-uppercase">Mulai Tes</a>
                         </div>
                     </div>
                 </div>
@@ -264,29 +264,18 @@
 	                    <thead>
 	                    <tr>
 	                    	<th>% Kemiripan</th>
-	                    	<th>&nbsp;</th>
+	                    	<th>Tingkat Resiko</th>
+	                    	<th style="width: 65%;">Solusi</th>
 	                    </tr>
 	                    </thead>
 	                    <tbody>
 	                    <tr data-th-each="data:${results}">
 	                    <td style="color:red;font-size:20px; font-weight: bolder; vertical-align: middle;" data-th-text="${data.percent()}"/>
+	                    <td style="color:red;font-size:20px; font-weight: bolder; vertical-align: middle;" data-th-text="${data.type}"/>
 	                    <td>
-	                    	<table class="table">
-	                    	<thead>
-	                    	<tr>
-	                    		<th>Gejala</th>
-	                    		<th>Jenis</th>
-	                    		<th style="width: 65%">Solusi</th>
-	                    	</tr>
-	                    	</thead>
-	                    	<tbody>
-	                    	<tr data-th-each="solusi:${data.solutions}">
-	                    		<td data-th-text="${solusi.gejala}"/>
-	                    		<td data-th-text="${solusi.jenis}"/>
-	                    		<td data-th-text="${solusi.description}"/>
-	                    	</tr>
-	                    	</tbody>
-	                    	</table>
+	                    	<ul data-th-each="solusi:${data.solutions}">
+	                    		<li data-th-text="${solusi.description}"/>
+	                    	</ul>
 	                    </td>
 	                    </tr>
 	                    </tbody>

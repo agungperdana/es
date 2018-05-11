@@ -1,9 +1,0 @@
-dependencies {
-    
-    compile project(':security')
-    compile project(':web-util')
-    compile project(':cbr')
-    
-    compile 'org.springframework.boot:spring-boot-starter-web'
-    compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
-}

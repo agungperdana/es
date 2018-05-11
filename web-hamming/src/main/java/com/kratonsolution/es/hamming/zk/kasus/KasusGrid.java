@@ -39,7 +39,6 @@ public class KasusGrid extends Vlayout {
         grid.appendChild(new Rows());
         grid.getColumns().appendChild(new Column("", null, "75px"));
         grid.getColumns().appendChild(new Column("", null, "75px"));
-        grid.getColumns().appendChild(new Column("Binaries", null, null));
         grid.getColumns().appendChild(new Column("Fit 1", null, "70px"));
         grid.getColumns().appendChild(new Column("Fit 2", null, "70px"));
         grid.getColumns().appendChild(new Column("Fit 3", null, "70px"));
@@ -47,7 +46,8 @@ public class KasusGrid extends Vlayout {
         grid.getColumns().appendChild(new Column("Fit 5", null, "70px"));
         grid.getColumns().appendChild(new Column("Fit 6", null, "70px"));
         grid.getColumns().appendChild(new Column("Fit 7", null, "70px"));
-        grid.setSpan("2");
+        grid.getColumns().appendChild(new Column("Jenis Resiko", null, "100px"));
+        grid.setSpan("9");
         
         KasusService service = Springs.get(KasusService.class);
         
@@ -71,7 +71,6 @@ public class KasusGrid extends Vlayout {
 
             row.appendChild(ubah);
             row.appendChild(hapus);
-            row.appendChild(new Label(kasus.binaries()));
             row.appendChild(new Label(kasus.getFitur1()));
             row.appendChild(new Label(kasus.getFitur2()));
             row.appendChild(new Label(kasus.getFitur3()));
@@ -79,6 +78,7 @@ public class KasusGrid extends Vlayout {
             row.appendChild(new Label(kasus.getFitur5()));
             row.appendChild(new Label(kasus.getFitur6()));
             row.appendChild(new Label(kasus.getFitur7()));
+            row.appendChild(new Label(kasus.getType().name()));
             
             grid.getRows().appendChild(row);
         });

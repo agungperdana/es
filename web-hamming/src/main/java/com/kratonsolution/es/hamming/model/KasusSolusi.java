@@ -31,36 +31,26 @@ public class KasusSolusi {
     @JoinColumn(name="fk_kasus")
     private Kasus parent;
 
-    @Setter
-    @Column
-    private boolean selected;
-    
     @Column
     private String solusiID;
-    
-    @Column
-    private String gejala;
-    
-    @Column
-    private String jenis;
-    
+        
     @Setter
     @Column
     private String description;
     
-    
+    @Setter
+    @Column
+    private boolean selected;
+
     @Version
     private Long version;
     
     KasusSolusi() {}
     
-    public KasusSolusi(@NonNull Kasus parent, @NonNull String solutionID, 
-            @NonNull String gejala, @NonNull String jenis, String description, boolean selected) {
+    public KasusSolusi(@NonNull Kasus parent, @NonNull String solutionID, String description, boolean selected) {
 
         this.parent = parent;
         this.solusiID = solutionID;
-        this.gejala = gejala;
-        this.jenis = jenis;
         this.description = description;
         this.selected = selected;
     }

@@ -23,12 +23,6 @@ public class Solution {
     
     @Id
     private String id = UUID.randomUUID().toString();
-
-    @Column
-    private String gejala;
-    
-    @Column
-    private String jenis;
     
     @Setter
     @Column
@@ -39,24 +33,14 @@ public class Solution {
     
     Solution() {}
     
-    public Solution(@NonNull String gejala, @NonNull String jenis, @NonNull String description) {
+    public Solution(@NonNull String description) {
         
-        this.gejala = gejala;
-        this.jenis = jenis;
-        this.description = description;
-    }
-    
-    public Solution(@NonNull String id, @NonNull String gejala, @NonNull String jenis, @NonNull String description) {
-        
-        this.id = id;
-        this.gejala = gejala;
-        this.jenis = jenis;
         this.description = description;
     }
     
     @Override
     public String toString() {
 
-        return this.gejala+", "+this.jenis+", "+this.description;
+        return this.description;
     }
 }

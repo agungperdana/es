@@ -29,10 +29,7 @@ public class KasusSolutionListener {
             
             service.getAllKasuses().forEach(kasus -> {
                 
-                KasusSolusi solusi = new KasusSolusi(kasus, event.getSolution().getId(), 
-                        event.getSolution().getGejala(), event.getSolution().getJenis(), 
-                        event.getSolution().getDescription(), false);
-                
+                KasusSolusi solusi = new KasusSolusi(kasus, event.getSolution().getId(), event.getSolution().getDescription(), false);
                 kasus.getSolutions().add(solusi);
                 
                 service.update(kasus);

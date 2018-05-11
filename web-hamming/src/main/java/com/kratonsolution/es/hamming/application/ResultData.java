@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.kratonsolution.es.hamming.model.KasusSolusi;
+import com.kratonsolution.es.hamming.model.RiskType;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -18,16 +19,15 @@ public class ResultData {
  
     private double percentMatch;
     
+    private boolean match = false;
+    
     private String kasusID;
+    
+    private RiskType type;
     
     private List<KasusSolusi> solutions = new ArrayList<>();
     
     public String percent() {
         return (percentMatch*100)+"%";
-    }
-    
-    public boolean match() {
-        
-        return percentMatch == 1d;
     }
 }

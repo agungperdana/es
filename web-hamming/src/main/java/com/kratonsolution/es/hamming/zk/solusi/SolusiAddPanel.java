@@ -23,10 +23,6 @@ public class SolusiAddPanel extends Vlayout {
     
     private Label error = new Label();
     
-    private Textbox gejala = new Textbox();
-    
-    private Textbox jenis = new Textbox();
-    
     private Textbox note = new Textbox();
     
     private Button submit = new Button("Simpan");
@@ -38,19 +34,11 @@ public class SolusiAddPanel extends Vlayout {
         
         error.setStyle("color:red;");
         error.setHflex("1");
-        
-        gejala.setPlaceholder("Masukan Gejala Penyakit");
-        gejala.setHflex("1");
-        
-        jenis.setPlaceholder("Masukan Jenis Penyakit");
-        jenis.setHflex("1");
 
         note.setPlaceholder("Masukan solusi");
         note.setHflex("1");
         
         appendChild(error);
-        appendChild(gejala);
-        appendChild(jenis);
         appendChild(note);
         appendChild(submit);
         
@@ -59,11 +47,9 @@ public class SolusiAddPanel extends Vlayout {
             
             try {
                 
-                Preconditions.checkState(!Strings.isNullOrEmpty(gejala.getValue()), "Gejala penyakit tidak boleh kosong");
-                Preconditions.checkState(!Strings.isNullOrEmpty(jenis.getValue()), "Jenis penyakit tidak boleh kosong");
                 Preconditions.checkState(!Strings.isNullOrEmpty(note.getValue()), "Solusi penyakit tidak boleh kosong");
                 
-                Springs.get(SolutionService.class).create(new Solution(gejala.getValue(), jenis.getValue(), note.getValue()));
+                Springs.get(SolutionService.class).create(new Solution(note.getValue()));
                 
                 SolusiAddPanel.this.getParent();
                 

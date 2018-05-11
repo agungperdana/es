@@ -21,6 +21,7 @@ import com.kratonsolution.es.Springs;
 import com.kratonsolution.es.hamming.application.KasusService;
 import com.kratonsolution.es.hamming.model.Kasus;
 import com.kratonsolution.es.hamming.model.KasusSolusi;
+import com.kratonsolution.es.hamming.model.RiskType;
 
 import lombok.NonNull;
 
@@ -46,6 +47,8 @@ public class KasusEditPanel extends Vlayout {
     
     private Combobox fitur7 = new Combobox();
     
+    private Combobox type = new Combobox();
+    
     private Toolbarbutton back = new Toolbarbutton("Batal");
     
     private Toolbarbutton submit = new Toolbarbutton("Simpan");
@@ -60,8 +63,10 @@ public class KasusEditPanel extends Vlayout {
     
     public KasusEditPanel(@NonNull Component parent, @NonNull Kasus kasus) {
         
-        setVflex("1");
-        setHflex("1");
+        setSpacing("3px");
+        setWidth("100%");
+        setHeight("100%");
+        setStyle("overflow:auto");
         
         tabbox.setHflex("1");
         tabbox.appendChild(new Tabs());
@@ -98,7 +103,7 @@ public class KasusEditPanel extends Vlayout {
                 
                 Optional<Kasus> on = Springs.get(KasusService.class).getById(kasus.getId());
                 if(on.isPresent()) {
-
+                    
                     on.get().setFitur1(fitur1.getSelectedItem().getValue());
                     on.get().setFitur2(fitur2.getSelectedItem().getValue());
                     on.get().setFitur3(fitur3.getSelectedItem().getValue());
@@ -106,12 +111,13 @@ public class KasusEditPanel extends Vlayout {
                     on.get().setFitur5(fitur5.getSelectedItem().getValue());
                     on.get().setFitur6(fitur6.getSelectedItem().getValue());
                     on.get().setFitur7(fitur7.getSelectedItem().getValue());
+                    on.get().setType(type.getSelectedItem().getValue());
                     
                     layout2.getChildren().forEach(com -> {
                         
                         Checkbox box = (Checkbox)com;
                         Optional<KasusSolusi> opt = on.get().getSolutions().stream().filter(p -> 
-                                                        p.getId().equals(box.getValue())).findFirst();
+                        p.getId().equals(box.getValue())).findFirst();
                         if(opt.isPresent()) {
                             opt.get().setSelected(box.isChecked());
                         }
@@ -138,48 +144,57 @@ public class KasusEditPanel extends Vlayout {
         error.setStyle("color:red;");
         error.setHflex("1");
         
-        fitur1.setHflex("1");
+        for(RiskType risk:RiskType.values()) {
+            type.appendChild(createItem(risk.name(), risk));
+        }
+        type.setWidth("70%");
+        type.setSelectedIndex(0);
+        setSelected(type, kasus.getType());
+        
+        fitur1.setWidth("70%");
         fitur1.appendChild(createItem(" < 120/80 mm hg", "100"));
         fitur1.appendChild(createItem(" 120-129/80-89 mm hg", "010"));
         fitur1.appendChild(createItem(" > 140/90 mm hg", "001"));
         setSelected(fitur1, kasus.getFitur1());
         
-        fitur2.setHflex("1");
+        fitur2.setWidth("70%");
         fitur2.appendChild(createItem(" < 100 mg/dl", "100"));
         fitur2.appendChild(createItem(" 100-200 mg/dl", "010"));
         fitur2.appendChild(createItem(" > 200 mg/dl", "001"));
         setSelected(fitur2, kasus.getFitur2());
         
-        fitur3.setHflex("1");
+        fitur3.setWidth("70%");
         fitur3.appendChild(createItem(" < 200 mg/dl", "100"));
         fitur3.appendChild(createItem(" 200-239 mg/dl", "010"));
         fitur3.appendChild(createItem(" > 240 mg/dl", "001"));
         setSelected(fitur3, kasus.getFitur3());
         
-        fitur4.setHflex("1");
+        fitur4.setWidth("70%");
         fitur4.appendChild(createItem("Tidak Merokok", "100"));
         fitur4.appendChild(createItem("Jarang Merokok", "010"));
         fitur4.appendChild(createItem("Pecandu Merokok", "001"));
         setSelected(fitur4, kasus.getFitur4());
         
-        fitur5.setHflex("1");
+        fitur5.setWidth("70%");
         fitur5.appendChild(createItem("Olah raga teratur", "100"));
         fitur5.appendChild(createItem("Jarang Olah raga", "010"));
         fitur5.appendChild(createItem("Tidak Olah raga", "001"));
         setSelected(fitur5, kasus.getFitur5());
         
-        fitur6.setHflex("1");
+        fitur6.setWidth("70%");
         fitur6.appendChild(createItem("Ideal", "100"));
         fitur6.appendChild(createItem("Overweight", "010"));
         fitur6.appendChild(createItem("Obesitas", "001"));
         setSelected(fitur6, kasus.getFitur6());
         
-        fitur7.setHflex("1");
+        fitur7.setWidth("70%");
         fitur7.appendChild(createItem("Tidak ada", "100"));
         fitur7.appendChild(createItem("Tidak yakin", "010"));
         fitur7.appendChild(createItem("Ada", "001"));
         setSelected(fitur7, kasus.getFitur7());
         
+        layout1.appendChild(new Label("Tingkat Resiko"));
+        layout1.appendChild(type);
         layout1.appendChild(new Label("Tekanan Darah ?"));
         layout1.appendChild(fitur1);
         layout1.appendChild(new Label("Gula Darah ?"));
@@ -202,7 +217,7 @@ public class KasusEditPanel extends Vlayout {
         
         kasus.getSolutions().forEach(sol -> {
             
-            Checkbox checkbox = new Checkbox(sol.getGejala()+" - "+sol.getJenis()+" - "+sol.getDescription());
+            Checkbox checkbox = new Checkbox(sol.getDescription());
             checkbox.setValue(sol.getId());
             checkbox.setChecked(sol.isSelected());
             
@@ -220,7 +235,25 @@ public class KasusEditPanel extends Vlayout {
         return item;
     }
     
+    private Comboitem createItem(String label, RiskType type) {
+        
+        Comboitem item = new Comboitem(label);
+        item.setValue(type);
+        
+        return item;
+    }
+    
     private void setSelected(Combobox combobox, @NonNull String selected) {
+        
+        combobox.getItems().forEach(item -> {
+            
+            if(item.getValue().equals(selected)) {
+                combobox.setSelectedItem(item);
+            }
+        });
+    }
+    
+    private void setSelected(Combobox combobox, @NonNull RiskType selected) {
         
         combobox.getItems().forEach(item -> {
             

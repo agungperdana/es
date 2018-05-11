@@ -7,15 +7,19 @@ import java.util.UUID;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.Version;
 
 import com.google.common.base.MoreObjects;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 
 /**
@@ -52,9 +56,16 @@ public class Kasus {
     @Column
     private String fitur7;
     
+    @Column
+    @Enumerated(EnumType.STRING)
+    private RiskType type = RiskType.RENDAH;
+    
     @Setter
     @Column
     private boolean incubated = false;
+    
+    @Transient
+    private double percent;
     
     @OneToMany(mappedBy="parent", cascade=CascadeType.ALL, fetch=FetchType.LAZY, orphanRemoval=true)
     private Set<KasusSolusi> solutions = new HashSet<>();
@@ -64,7 +75,25 @@ public class Kasus {
     
     Kasus() {}
     
-    public Kasus(String fitur1, String fitur2, String fitur3, String fitur4, String fitur5, String fitur6, String fitur7) {
+    public Kasus(@NonNull String fitur1, 
+            @NonNull String fitur2, 
+            @NonNull String fitur3, 
+            @NonNull String fitur4, 
+            @NonNull String fitur5, 
+            @NonNull String fitur6, 
+            @NonNull String fitur7) {
+        
+        this(fitur1, fitur2, fitur3, fitur4, fitur5, fitur6, fitur7, RiskType.RENDAH);
+    }
+    
+    public Kasus(@NonNull String fitur1, 
+            @NonNull String fitur2, 
+            @NonNull String fitur3, 
+            @NonNull String fitur4, 
+            @NonNull String fitur5, 
+            @NonNull String fitur6, 
+            @NonNull String fitur7, 
+            @NonNull RiskType riskType) {
         
         this.fitur1 = fitur1;
         this.fitur2 = fitur2;
@@ -73,6 +102,7 @@ public class Kasus {
         this.fitur5 = fitur5;
         this.fitur6 = fitur6;
         this.fitur7 = fitur7;
+        this.type = riskType;
     }
     
     public String binaries() {

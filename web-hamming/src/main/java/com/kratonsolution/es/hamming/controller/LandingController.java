@@ -65,14 +65,14 @@ public class LandingController {
         builder.append(fitur7);
         
         List<ResultData> results =  engine.solve(builder.toString());
-        boolean match = results.stream().anyMatch(p -> p.match());
+        boolean match = results.stream().anyMatch(p -> p.isMatch());
         if(!match) {
             
             Kasus kasus = new Kasus(fitur1, fitur2, fitur3, fitur4, fitur5, fitur6, fitur7);
             kasus.setIncubated(true);
             
             solutionService.getAllSolutiones().forEach(sol -> {
-                kasus.getSolutions().add(new KasusSolusi(kasus, sol.getId(), sol.getGejala(), sol.getJenis(), sol.getDescription(), false));
+                kasus.getSolutions().add(new KasusSolusi(kasus, sol.getId(), sol.getDescription(), false));
             });
             
             service.create(kasus);

@@ -17,19 +17,12 @@ import lombok.NonNull;
  */
 public interface SolutionRepository extends JpaRepository<Solution, String> {
 
-    @Query("FROM Solution solution WHERE solution.gejala LIKE :key% "
-            + "OR solution.jenis LIKE :key% "
-            + "OR solution.description LIKE :key%")
+    @Query("FROM Solution solution WHERE solution.description LIKE :key%")
     public List<Solution> findAll(@Param("key") @NonNull String key);
     
-    @Query("FROM Solution solution WHERE solution.gejala LIKE :key% "
-            + "OR solution.jenis LIKE :key% "
-            + "OR solution.description LIKE :key%")
+    @Query("FROM Solution solution WHERE solution.description LIKE :key%")
     public List<Solution> findAll(Pageable pageable, @Param("key")@NonNull String key);
     
-    @Query("SELECT COUNT(solution) FROM Solution solution WHERE "
-            + "solution.gejala LIKE :key% "
-            + "OR solution.jenis LIKE :key% "
-            + "OR solution.description LIKE :key%")
+    @Query("SELECT COUNT(solution) FROM Solution solution WHERE solution.description LIKE :key%")
     public Long count(@Param("key") @NonNull String key);
 }
